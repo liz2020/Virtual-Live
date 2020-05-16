@@ -1,0 +1,1 @@
+Put the Core and Framework folder at here. These folder can be found from Cubism SDK for Web at https://www.live2d.com/download/cubism-sdk/download-web/
