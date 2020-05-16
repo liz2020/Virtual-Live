@@ -2,27 +2,33 @@
 
 > 
 
-#### Build Setup
+## Build Setup
 
 ``` bash
 # install dependencies
-npm install
+yarn install
 
 # serve with hot reload at localhost:9080
-npm run dev
+yarn run dev
 
 # build electron application for production
-npm run build
+yarn run build
 
 # run unit tests
-npm test
+yarn test
 
 
 # lint all JS/Vue component files in `src/`
-npm run lint
+yarn run lint
 
 ```
 
----
+## Resources
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+#### setup eslint with prettier
+Follow these two links and move the "parser: "babel-eslint"" line in .eslintrc.js file to ParserOption. Also change the html in plugins to vue.
+https://alligator.io/vuejs/vue-eslint-plugin/
+https://alligator.io/vuejs/vue-eslint-prettier/
+
+
+

@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  export default {
-    name: 'pumpkinface'
-  }
+export default {
+  name: "pumpkinface"
+};
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
 </style>
