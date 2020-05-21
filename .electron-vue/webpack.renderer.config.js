@@ -112,7 +112,17 @@ let rendererConfig = {
             name: 'fonts/[name]--[folder].[ext]'
           }
         }
-      }
+      },
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [ /\.vue/ ]
+          },
+        },
+        exclude: /node_modules/,
+      },
     ]
   },
   node: {
@@ -147,7 +157,7 @@ let rendererConfig = {
       '@': path.join(__dirname, '../src/renderer'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['.js', '.vue', '.json', '.css', '.node']
+    extensions: ['.js', '.vue', '.json', '.css', '.node', '.ts', '.tsx']
   },
   target: 'electron-renderer'
 }
