@@ -9,14 +9,14 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "static/Cubism/Core/*.ts",
-    "src/renderer/**/*.ts",
+    "src/**/*.ts",
+    "../Core/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist",
+    "dist"
   ]
 }

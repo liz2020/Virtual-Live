@@ -13,14 +13,15 @@
 </template>
 
 <script lang="ts">
+import "./lapp/main";
 export let canvas = null;
 export let gl = null;
 export let frameBuffer = null;
 export default {
   data: function() {
     return {
-      RenderTargetWidth: 1900,
-      RenderTargetHeight: 1000,
+      RenderTargetWidth: 0,
+      RenderTargetHeight: 0,
       color: 0.5,
       requestId: undefined
     };
