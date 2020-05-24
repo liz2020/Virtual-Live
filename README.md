@@ -32,3 +32,7 @@ When using electron-vue to init the project, choose Use ESLint, and then choose 
 https://webpack.js.org/guides/typescript/
 https://stackoverflow.com/a/54505559/13563675
 https://madogiwa0124.hatenablog.com/entry/2020/04/25/181858
+
+
+#### Cannot build for windows on Mac Catalina
+<del> received the error "bad CPU type in executable: wine" when trying to build for windows on mac Catalina. According to [this](https://github.com/electron/node-rcedit/issues/51), install wine-stable using "brew cask install wine-stable". Make sure "/usr/local/bin/wine64" exists. </del> Use "DEBUG=electron-builder yarn run build -w" to see the full log. It shows before the "x error:" line that the electron-builder is using rcedit-ia32.exe (even if the --x64 flag is set). Maybe could use rcedit-ia64.exe to replace that file, but not sure if that will break the electron-builder. May verify latter. 
