@@ -8,7 +8,7 @@
 import {
   Live2DCubismFramework as live2dcubismframework,
   Option as Csm_Option
-} from '../../../../static/Cubism/Framework/src/live2dcubismframework';
+} from '../../../static/Cubism/Framework/src/live2dcubismframework';
 import Csm_CubismFramework = live2dcubismframework.CubismFramework;
 import { LAppView } from './lappview';
 import { LAppPal } from './lapppal';

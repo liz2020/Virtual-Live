@@ -5,23 +5,23 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import { Live2DCubismFramework as live2dcubismframework } from '../../../../static/Cubism/Framework/src/live2dcubismframework';
-import { Live2DCubismFramework as cubismid } from '../../../../static/Cubism/Framework/src/id/cubismid';
-import { Live2DCubismFramework as cubismusermodel } from '../../../../static/Cubism/Framework/src/model/cubismusermodel';
-import { Live2DCubismFramework as icubismmodelsetting } from '../../../../static/Cubism/Framework/src/icubismmodelsetting';
-import { Live2DCubismFramework as cubismmodelsettingjson } from '../../../../static/Cubism/Framework/src/cubismmodelsettingjson';
-import { Live2DCubismFramework as cubismdefaultparameterid } from '../../../../static/Cubism/Framework/src/cubismdefaultparameterid';
-import { Live2DCubismFramework as acubismmotion } from '../../../../static/Cubism/Framework/src/motion/acubismmotion';
-import { Live2DCubismFramework as cubismeyeblink } from '../../../../static/Cubism/Framework/src/effect/cubismeyeblink';
-import { Live2DCubismFramework as cubismbreath } from '../../../../static/Cubism/Framework/src/effect/cubismbreath';
-import { Live2DCubismFramework as csmvector } from '../../../../static/Cubism/Framework/src/type/csmvector';
-import { Live2DCubismFramework as csmmap } from '../../../../static/Cubism/Framework/src/type/csmmap';
-import { Live2DCubismFramework as cubismmatrix44 } from '../../../../static/Cubism/Framework/src/math/cubismmatrix44';
-import { Live2DCubismFramework as cubismmotion } from '../../../../static/Cubism/Framework/src/motion/cubismmotion';
-import { Live2DCubismFramework as cubismmotionqueuemanager } from '../../../../static/Cubism/Framework/src/motion/cubismmotionqueuemanager';
-import { Live2DCubismFramework as csmstring } from '../../../../static/Cubism/Framework/src/type/csmstring';
-import { Live2DCubismFramework as csmrect } from '../../../../static/Cubism/Framework/src/type/csmrectf';
-import { CubismLogInfo } from '../../../../static/Cubism/Framework/src/utils/cubismdebug';
+import { Live2DCubismFramework as live2dcubismframework } from '../../../static/Cubism/Framework/src/live2dcubismframework';
+import { Live2DCubismFramework as cubismid } from '../../../static/Cubism/Framework/src/id/cubismid';
+import { Live2DCubismFramework as cubismusermodel } from '../../../static/Cubism/Framework/src/model/cubismusermodel';
+import { Live2DCubismFramework as icubismmodelsetting } from '../../../static/Cubism/Framework/src/icubismmodelsetting';
+import { Live2DCubismFramework as cubismmodelsettingjson } from '../../../static/Cubism/Framework/src/cubismmodelsettingjson';
+import { Live2DCubismFramework as cubismdefaultparameterid } from '../../../static/Cubism/Framework/src/cubismdefaultparameterid';
+import { Live2DCubismFramework as acubismmotion } from '../../../static/Cubism/Framework/src/motion/acubismmotion';
+import { Live2DCubismFramework as cubismeyeblink } from '../../../static/Cubism/Framework/src/effect/cubismeyeblink';
+import { Live2DCubismFramework as cubismbreath } from '../../../static/Cubism/Framework/src/effect/cubismbreath';
+import { Live2DCubismFramework as csmvector } from '../../../static/Cubism/Framework/src/type/csmvector';
+import { Live2DCubismFramework as csmmap } from '../../../static/Cubism/Framework/src/type/csmmap';
+import { Live2DCubismFramework as cubismmatrix44 } from '../../../static/Cubism/Framework/src/math/cubismmatrix44';
+import { Live2DCubismFramework as cubismmotion } from '../../../static/Cubism/Framework/src/motion/cubismmotion';
+import { Live2DCubismFramework as cubismmotionqueuemanager } from '../../../static/Cubism/Framework/src/motion/cubismmotionqueuemanager';
+import { Live2DCubismFramework as csmstring } from '../../../static/Cubism/Framework/src/type/csmstring';
+import { Live2DCubismFramework as csmrect } from '../../../static/Cubism/Framework/src/type/csmrectf';
+import { CubismLogInfo } from '../../../static/Cubism/Framework/src/utils/cubismdebug';
 import csmRect = csmrect.csmRect;
 import csmString = csmstring.csmString;
 import InvalidMotionQueueEntryHandleValue = cubismmotionqueuemanager.InvalidMotionQueueEntryHandleValue;

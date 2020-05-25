@@ -11,10 +11,11 @@ if (process.env.NODE_ENV !== "development") {
 }
 
 let mainWindow;
+let mainWindow2;
 const winURL =
   process.env.NODE_ENV === "development"
-    ? `http://localhost:9080`
-    : `file://${__dirname}/index.html`;
+    ? `http://localhost:9080/`
+    : `file://${__dirname}/`;
 
 function createWindow() {
   /**
@@ -24,16 +25,44 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     width: 1000
+    // show: false
   });
 
-  mainWindow.loadURL(winURL);
+  mainWindow.loadURL(winURL + "index.html");
+
+  // mainWindow.once("ready-to-show", () => {
+  //   mainWindow.show();
+  // });
 
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
 }
 
+function createWindow2() {
+  /**
+   * Initial window options
+   */
+  mainWindow2 = new BrowserWindow({
+    height: 563,
+    useContentSize: true,
+    width: 1000
+    // show: false
+  });
+
+  mainWindow2.loadURL(winURL + "live2d.html");
+
+  // mainWindow.once("ready-to-show", () => {
+  //   mainWindow.show();
+  // });
+
+  mainWindow2.on("closed", () => {
+    mainWindow2 = null;
+  });
+}
+
 app.on("ready", createWindow);
+app.on("ready", createWindow2);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -44,6 +73,9 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
+  }
+  if (mainWindow2 === null) {
+    createWindow2();
   }
 });
 

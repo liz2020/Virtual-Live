@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts">
-import "./lapp/main";
 export let canvas = null;
 export let gl = null;
 export let frameBuffer = null;

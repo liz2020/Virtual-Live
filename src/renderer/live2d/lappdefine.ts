@@ -5,7 +5,7 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import { LogLevel } from '../../../../static/Cubism/Framework/src/live2dcubismframework';
+import { LogLevel } from '../../../static/Cubism/Framework/src/live2dcubismframework';
 
 /**
  * Sample Appで使用する定数
@@ -23,7 +23,7 @@ export const ViewLogicalMaxBottom = -2.0;
 export const ViewLogicalMaxTop = 2.0;
 
 // 相対パス
-export const ResourcesPath = 'static/';
+export const ResourcesPath = 'static/Live2dAssets/';
 
 // モデルの後ろにある背景の画像ファイル
 export const BackImageName = 'back_class_normal.png';

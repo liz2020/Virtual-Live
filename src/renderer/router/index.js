@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "landing-page",
+      name: "ChromaKey",
       component: require("@/components/ChromaKey").default
     },
     {
