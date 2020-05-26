@@ -134,9 +134,9 @@ let rendererConfig = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({filename: 'styles.css'}),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: 'launcher.html',
       chunks: ['renderer'],
-      template: path.resolve(__dirname, '../src/index.ejs'),
+      template: path.resolve(__dirname, '../src/launcher.ejs'),
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,

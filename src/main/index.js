@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 
 /**
  * Set `__static` path to static files in production
@@ -11,58 +11,49 @@ if (process.env.NODE_ENV !== "development") {
 }
 
 let mainWindow;
-let mainWindow2;
+let live2dWindow;
 const winURL =
   process.env.NODE_ENV === "development"
     ? `http://localhost:9080/`
     : `file://${__dirname}/`;
 
 function createWindow() {
-  /**
-   * Initial window options
-   */
   mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000
-    // show: false
+    height: 220,
+    width: 200,
+    resizable: false
   });
 
-  mainWindow.loadURL(winURL + "index.html");
-
-  // mainWindow.once("ready-to-show", () => {
-  //   mainWindow.show();
-  // });
+  mainWindow.loadURL(winURL + "launcher.html");
 
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
 }
 
-function createWindow2() {
-  /**
-   * Initial window options
-   */
-  mainWindow2 = new BrowserWindow({
-    height: 563,
+function launchLive2d() {
+  if (live2dWindow) {
+    return;
+  }
+  live2dWindow = new BrowserWindow({
+    height: 1000,
     useContentSize: true,
-    width: 1000
-    // show: false
+    width: 1900,
+    show: false
   });
 
-  mainWindow2.loadURL(winURL + "live2d.html");
+  live2dWindow.loadURL(winURL + "live2d.html");
 
-  // mainWindow.once("ready-to-show", () => {
-  //   mainWindow.show();
-  // });
+  live2dWindow.once("ready-to-show", () => {
+    live2dWindow.show();
+  });
 
-  mainWindow2.on("closed", () => {
-    mainWindow2 = null;
+  live2dWindow.on("closed", () => {
+    live2dWindow = null;
   });
 }
 
 app.on("ready", createWindow);
-app.on("ready", createWindow2);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -74,9 +65,10 @@ app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
-  if (mainWindow2 === null) {
-    createWindow2();
-  }
+});
+
+ipcMain.on("launch-live2d", () => {
+  launchLive2d();
 });
 
 /**

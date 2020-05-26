@@ -43,3 +43,6 @@ https://simulatedgreg.gitbooks.io/electron-vue/content/cn/webpack-configurations
 https://github.com/SimulatedGREG/electron-vue/issues/736#issuecomment-501968309
 https://www.electronjs.org/docs/api/browser-window
 https://www.youtube.com/watch?v=K-H2amwQ_pU&list=WL&index=3&t=0s
+
+#### Logo design
+Use WordArt provided by http://www.zitiweb.com/ziti/859. This website claims the fonts are free to use. 
