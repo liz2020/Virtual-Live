@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <main>
-      <img id="logo" src="~@/assets/pumpkin_logo.png" alt="南瓜重工" />
+      <img id="logo" src="@launcher/assets/pumpkin_logo.png" alt="南瓜重工" />
       <button @click="launchLive2d">
         Live2d viewer
       </button>

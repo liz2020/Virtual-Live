@@ -24,7 +24,7 @@ let whiteListedModules = ['vue']
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
-    renderer: path.join(__dirname, '../src/renderer/main.js'),
+    launcher: path.join(__dirname, '../src/renderer/launcher/main.js'),
     live2d: path.join(__dirname,'../src/renderer/live2d/main.ts' )
   },
   externals: [
@@ -135,7 +135,7 @@ let rendererConfig = {
     new MiniCssExtractPlugin({filename: 'styles.css'}),
     new HtmlWebpackPlugin({
       filename: 'launcher.html',
-      chunks: ['renderer'],
+      chunks: ['launcher'],
       template: path.resolve(__dirname, '../src/launcher.ejs'),
       minify: {
         collapseWhitespace: true,
@@ -170,6 +170,7 @@ let rendererConfig = {
   resolve: {
     alias: {
       '@': path.join(__dirname, '../src/renderer'),
+      '@launcher': path.join(__dirname, '../src/renderer/launcher'),
       'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node', '.ts', '.tsx']

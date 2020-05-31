@@ -8,7 +8,7 @@ export default new Router({
     {
       path: "/",
       name: "Launcher",
-      component: require("@/components/Launcher").default
+      component: require("@launcher/components/Launcher").default
     },
     {
       path: "*",
