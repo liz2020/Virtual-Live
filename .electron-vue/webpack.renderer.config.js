@@ -25,7 +25,7 @@ let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
     launcher: path.join(__dirname, '../src/renderer/launcher/main.js'),
-    live2d: path.join(__dirname,'../src/renderer/live2d/main.ts' )
+    live2d: path.join(__dirname,'../src/renderer/live2d/main.js' )
   },
   externals: [
     ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
@@ -171,6 +171,8 @@ let rendererConfig = {
     alias: {
       '@': path.join(__dirname, '../src/renderer'),
       '@launcher': path.join(__dirname, '../src/renderer/launcher'),
+      '@live2d': path.join(__dirname, '../src/renderer/live2d'),
+      '@static': path.join(__dirname, '../static'),
       'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node', '.ts', '.tsx']

@@ -15,7 +15,7 @@
 <script>
 import { ipcRenderer } from "electron";
 export default {
-  name: "landing-page",
+  name: "launcher",
   methods: {
     open(link) {
       this.$electron.shell.openExternal(link);

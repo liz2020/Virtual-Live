@@ -5,8 +5,8 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import { Live2DCubismFramework as cubismMatrix44 } from '../../../static/Cubism/Framework/src/math/cubismmatrix44';
-import { Live2DCubismFramework as cubismviewmatrix } from '../../../static/Cubism/Framework/src/math/cubismviewmatrix';
+import { Live2DCubismFramework as cubismMatrix44 } from '@static/Cubism/Framework/src/math/cubismmatrix44';
+import { Live2DCubismFramework as cubismviewmatrix } from '@static/Cubism/Framework/src/math/cubismviewmatrix';
 import Csm_CubismViewMatrix = cubismviewmatrix.CubismViewMatrix;
 import Csm_CubismMatrix44 = cubismMatrix44.CubismMatrix44;
 import { TouchManager } from './touchmanager';

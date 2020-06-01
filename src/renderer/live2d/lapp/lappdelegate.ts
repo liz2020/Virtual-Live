@@ -8,7 +8,7 @@
 import {
   Live2DCubismFramework as live2dcubismframework,
   Option as Csm_Option
-} from '../../../static/Cubism/Framework/src/live2dcubismframework';
+} from '@static/Cubism/Framework/src/live2dcubismframework';
 import Csm_CubismFramework = live2dcubismframework.CubismFramework;
 import { LAppView } from './lappview';
 import { LAppPal } from './lapppal';
@@ -20,6 +20,9 @@ export let canvas: HTMLCanvasElement = null;
 export let s_instance: LAppDelegate = null;
 export let gl: WebGLRenderingContext = null;
 export let frameBuffer: WebGLFramebuffer = null;
+export let L2D_Scale:number = 1.0;
+export let L2D_X:number = 0.0;
+export let L2D_Y:number = 0.0;
 
 /**
  * アプリケーションクラス。
@@ -51,12 +54,24 @@ export class LAppDelegate {
     s_instance = null;
   }
 
+  public setL2D_X(pos_X:number):void{
+    L2D_X = pos_X;
+  }
+
+  public setL2D_Y(pos_Y:number):void{
+    L2D_Y = pos_Y;
+  }
+
+  public setL2D_Scale(scale:number):void{
+    L2D_Scale = scale;
+  }
+
   /**
    * APPに必要な物を初期化する。
    */
-  public initialize(): boolean {
+  public initialize(ChromaKey:HTMLCanvasElement): boolean {
     // キャンバスの作成
-    canvas = document.createElement('canvas');
+    canvas = ChromaKey
     canvas.width = LAppDefine.RenderTargetWidth;
     canvas.height = LAppDefine.RenderTargetHeight;
 
@@ -74,9 +89,6 @@ export class LAppDelegate {
       // gl初期化失敗
       return false;
     }
-
-    // キャンバスを DOM に追加
-    document.body.appendChild(canvas);
 
     if (!frameBuffer) {
       frameBuffer = gl.getParameter(gl.FRAMEBUFFER_BINDING);
@@ -109,6 +121,8 @@ export class LAppDelegate {
 
     return true;
   }
+
+  
 
   /**
    * 解放する。
@@ -412,3 +426,5 @@ function onTouchCancel(e: TouchEvent): void {
 
   LAppDelegate.getInstance()._view.onTouchesEnded(posX, posY);
 }
+
+

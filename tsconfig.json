@@ -10,6 +10,10 @@
     "declarationMap": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+        "@static/*": [ "static/*" ],
+    }
   },
   "include": [
     "static/Cubism/Core/*.ts",

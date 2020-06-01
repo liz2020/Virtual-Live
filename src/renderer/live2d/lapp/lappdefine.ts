@@ -5,7 +5,7 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import { LogLevel } from '../../../static/Cubism/Framework/src/live2dcubismframework';
+import { LogLevel } from '@static/Cubism/Framework/src/live2dcubismframework';
 
 /**
  * Sample Appで使用する定数
@@ -62,5 +62,5 @@ export const DebugTouchLogEnable = false;
 export const CubismLoggingLevel: LogLevel = LogLevel.LogLevel_Verbose;
 
 // デフォルトのレンダーターゲットサイズ
-export const RenderTargetWidth = 1900;
-export const RenderTargetHeight = 1000;
+export const RenderTargetWidth = 950;
+export const RenderTargetHeight = 500;

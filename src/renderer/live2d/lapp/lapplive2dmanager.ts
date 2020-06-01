@@ -5,16 +5,16 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import { Live2DCubismFramework as cubismmatrix44 } from '../../../static/Cubism/Framework/src/math/cubismmatrix44';
-import { Live2DCubismFramework as csmvector } from '../../../static/Cubism/Framework/src/type/csmvector';
-import { Live2DCubismFramework as acubismmotion } from '../../../static/Cubism/Framework/src/motion/acubismmotion';
+import { Live2DCubismFramework as cubismmatrix44 } from '@static/Cubism/Framework/src/math/cubismmatrix44';
+import { Live2DCubismFramework as csmvector } from '@static/Cubism/Framework/src/type/csmvector';
+import { Live2DCubismFramework as acubismmotion } from '@static/Cubism/Framework/src/motion/acubismmotion';
 import Csm_csmVector = csmvector.csmVector;
 import Csm_CubismMatrix44 = cubismmatrix44.CubismMatrix44;
 import ACubismMotion = acubismmotion.ACubismMotion;
 
 import { LAppModel } from './lappmodel';
 import { LAppPal } from './lapppal';
-import { canvas } from './lappdelegate';
+import { canvas, L2D_Scale, L2D_X, L2D_Y } from './lappdelegate';
 import * as LAppDefine from './lappdefine';
 
 export let s_instance: LAppLive2DManager = null;
@@ -137,7 +137,8 @@ export class LAppLive2DManager {
     let projection: Csm_CubismMatrix44 = new Csm_CubismMatrix44();
 
     const { width, height } = canvas;
-    projection.scale(1.0, width / height);
+    projection.scale(1.0*L2D_Scale, width / height*L2D_Scale); //调整横竖比例
+    projection.translate(L2D_X,L2D_Y) //调整位移 参数是[-1,1]
 
     if (this._viewMatrix != null) {
       projection.multiplyByMatrix(this._viewMatrix);

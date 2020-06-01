@@ -21,7 +21,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     height: 220,
     width: 200,
-    resizable: false,
+    // resizable: false,
     title: "Atelier Pumpkin"
   });
 
@@ -37,9 +37,9 @@ function launchLive2d() {
     return;
   }
   live2dWindow = new BrowserWindow({
-    height: 1000,
+    height: 550,
     useContentSize: true,
-    width: 1900,
+    width: 950,
     show: false
   });
 
