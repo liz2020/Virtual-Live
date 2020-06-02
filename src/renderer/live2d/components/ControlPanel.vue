@@ -19,8 +19,8 @@
     <input
       v-model="pos_y"
       type="range"
-      :min="-2 * scale"
-      :max="2 * scale"
+      min="-1"
+      max="1"
       step="0.01"
       v-on:input="setY"
     />

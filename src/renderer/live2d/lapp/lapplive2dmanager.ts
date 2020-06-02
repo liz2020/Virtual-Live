@@ -98,21 +98,25 @@ export class LAppLive2DManager {
    * @param y 画面のY座標
    */
   public onTap(x: number, y: number): void {
+
+    const x_transpose = (x - L2D_X)/L2D_Scale;
+    const y_transpose = (y - L2D_Y/2)/L2D_Scale;
+
     if (LAppDefine.DebugLogEnable) {
       LAppPal.printMessage(
-        `[APP]tap point: {x: ${x.toFixed(2)} y: ${y.toFixed(2)}}`
+        `[APP]tap point: {x: ${x.toFixed(2)} y: ${y.toFixed(2)}} {x_transpose: ${x_transpose.toFixed(2)} y_transpose: ${y_transpose.toFixed(2)}}`
       );
     }
 
     for (let i = 0; i < this._models.getSize(); i++) {
-      if (this._models.at(i).hitTest(LAppDefine.HitAreaNameHead, x, y)) {
+      if (this._models.at(i).hitTest(LAppDefine.HitAreaNameHead, x_transpose, y_transpose)) {
         if (LAppDefine.DebugLogEnable) {
           LAppPal.printMessage(
             `[APP]hit area: [${LAppDefine.HitAreaNameHead}]`
           );
         }
         this._models.at(i).setRandomExpression();
-      } else if (this._models.at(i).hitTest(LAppDefine.HitAreaNameBody, x, y)) {
+      } else if (this._models.at(i).hitTest(LAppDefine.HitAreaNameBody, x_transpose, y_transpose)) {
         if (LAppDefine.DebugLogEnable) {
           LAppPal.printMessage(
             `[APP]hit area: [${LAppDefine.HitAreaNameBody}]`
@@ -137,8 +141,8 @@ export class LAppLive2DManager {
     let projection: Csm_CubismMatrix44 = new Csm_CubismMatrix44();
 
     const { width, height } = canvas;
-    projection.scale(1.0*L2D_Scale, width / height*L2D_Scale); //调整横竖比例
-    projection.translate(L2D_X,L2D_Y) //调整位移 参数是[-1,1]
+    projection.scale(L2D_Scale, width / height*L2D_Scale); //调整横竖比例
+    projection.translate(L2D_X,L2D_Y) //调整位移 参数是范围是[-1,1] 但注意页面x是[-1,1]但y是[-0.5,0.5] 所以坐标转换的时候y要除以二 
 
     if (this._viewMatrix != null) {
       projection.multiplyByMatrix(this._viewMatrix);
