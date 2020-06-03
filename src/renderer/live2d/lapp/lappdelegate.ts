@@ -72,9 +72,9 @@ export class LAppDelegate {
   public initialize(ChromaKey:HTMLCanvasElement): boolean {
     // キャンバスの作成
     canvas = ChromaKey
-    canvas.width = LAppDefine.RenderTargetWidth;
-    canvas.height = LAppDefine.RenderTargetHeight;
-
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    
     // glコンテキストを初期化
     // @ts-ignore
     gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');

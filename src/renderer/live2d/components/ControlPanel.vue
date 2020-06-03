@@ -6,24 +6,25 @@
       min="0.5"
       max="5"
       step="0.1"
-      v-on:input="setScale"
+      @input="setScale"
     />
     <input
       v-model="pos_x"
       type="range"
-      min="-1.5"
-      max="1.5"
+      min="-3"
+      max="3"
       step="0.01"
-      v-on:input="setX"
+      @input="setX"
     />
     <input
       v-model="pos_y"
       type="range"
-      min="-1"
-      max="1"
+      min="-5"
+      max="5"
       step="0.01"
-      v-on:input="setY"
+      @input="setY"
     />
+    <button v-on:click="reset">重置</button>
   </div>
 </template>
 
@@ -33,10 +34,13 @@ export default {
   name: "ControlPanel",
   data: function() {
     return {
-      scale: 1.0,
+      scale: 1.3,
       pos_x: 0,
       pos_y: 0
     };
+  },
+  mounted: function() {
+    this.reset();
   },
   methods: {
     setScale() {
@@ -47,6 +51,14 @@ export default {
     },
     setY() {
       LAppDelegate.getInstance().setL2D_Y(this.pos_y);
+    },
+    reset() {
+      this.scale = 1.3;
+      this.pos_x = 0;
+      this.pos_y = 0;
+      this.setScale();
+      this.setX();
+      this.setY();
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <ChromaKey />
-    <ControlPanel />
+  <div id="wrapper">
+    <div class="left"><ControlPanel /></div>
+    <div class="right"><ChromaKey /></div>
   </div>
 </template>
 
@@ -14,6 +14,27 @@ export default {
 };
 </script>
 
-<style>
-/* CSS */
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.left {
+  width: 220px;
+  height: 100%;
+}
+.right {
+  position: absolute;
+  top: 0;
+  left: 220px;
+  right: 0;
+  height: 100%;
+}
 </style>
