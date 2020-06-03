@@ -66,6 +66,10 @@ export class LAppDelegate {
     L2D_Scale = scale;
   }
 
+  public onWindowResize(){
+    this._view.onWindowResize();
+  }
+
   /**
    * APPに必要な物を初期化する。
    */
@@ -308,8 +312,10 @@ function onClickBegan(e: MouseEvent): void {
   }
   LAppDelegate.getInstance()._captured = true;
 
-  const posX: number = e.pageX;
-  const posY: number = e.pageY;
+  // pixels count from the boundary of canvas
+  const rect = (e.target as Element).getBoundingClientRect();
+  const posX: number = e.clientX - rect.left;
+  const posY: number = e.clientY - rect.top;
 
   LAppDelegate.getInstance()._view.onTouchesBegan(posX, posY);
 }

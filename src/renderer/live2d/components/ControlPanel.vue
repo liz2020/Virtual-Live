@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ModelSelector></ModelSelector>
     <input
       v-model="scale"
       type="range"
@@ -30,8 +31,10 @@
 
 <script>
 import { LAppDelegate } from "@live2d/lapp/lappdelegate";
+import ModelSelector from "@live2d/components/ModelSelector";
 export default {
   name: "ControlPanel",
+  components: { ModelSelector },
   data: function() {
     return {
       scale: 1.3,

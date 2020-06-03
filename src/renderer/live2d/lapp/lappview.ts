@@ -70,6 +70,17 @@ export class LAppView {
     );
   }
 
+  public onWindowResize(){
+    const { width, height } = canvas;
+    this._deviceToScreen = new Csm_CubismMatrix44();
+
+    const left: number = LAppDefine.ViewLogicalLeft;
+    const right: number = LAppDefine.ViewLogicalRight;
+    const screenW: number = Math.abs(left - right);
+    this._deviceToScreen.scaleRelative(screenW / width, -screenW / width);
+    this._deviceToScreen.translateRelative(-width * 0.5, -height * 0.5);
+  }
+
   /**
    * 解放する
    */
@@ -139,7 +150,7 @@ export class LAppView {
       initBackGroundTexture
     );
 
-    // 歯車画像初期化
+    // 歯車画像初期化 initiate gear image
     imageName = LAppDefine.GearImageName;
     const initGearTexture = (textureInfo: TextureInfo): void => {
       const x = width - textureInfo.width * 0.5;
@@ -212,10 +223,11 @@ export class LAppView {
         LAppPal.printMessage(`[APP]touchesEnded x: ${x} y: ${y}`);
       }
       live2DManager.onTap(x, y);
+      console.log(this._touchManager.getX(),pointX)
 
       // 歯車にタップしたか
       if (this._gear.isHit(pointX, pointY)) {
-        live2DManager.nextScene();
+        live2DManager.nextScene(); // wrapper of live2DManager.changeScene. 
       }
     }
   }
