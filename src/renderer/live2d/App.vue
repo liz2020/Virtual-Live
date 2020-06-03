@@ -14,14 +14,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 * {
   margin: 0;
   padding: 0;
 }
 
 html,
-body {
+body,
+#wrapper {
   width: 100%;
   height: 100%;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="ControlPanelContainer" class="scroll">
     <ModelSelector></ModelSelector>
     <input
       v-model="scale"
@@ -67,4 +67,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#ControlPanelContainer {
+  height: 100%;
+}
+
+.scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+</style>

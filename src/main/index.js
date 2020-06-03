@@ -21,7 +21,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     height: 220,
     width: 200,
-    // resizable: false,
+    resizable: false,
     title: "Atelier Pumpkin"
   });
 
