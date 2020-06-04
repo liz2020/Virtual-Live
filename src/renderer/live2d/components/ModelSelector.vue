@@ -30,6 +30,9 @@ export default {
   },
   methods: {
     changeModel(index) {
+      if (this.title == this.models[index]) {
+        return;
+      }
       LAppLive2DManager.getInstance().changeScene(index);
       this.title = this.models[index];
     }
