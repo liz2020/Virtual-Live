@@ -69,7 +69,16 @@ export default {
 
 <style>
 #ControlPanelContainer {
-  height: 100%;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(255, 255, 255, 1) 40%,
+    rgba(229, 229, 229, 0.9) 100%
+  );
+  margin-left: 5px;
+  margin-top: 5px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .scroll {

@@ -49,6 +49,10 @@ export class LAppLive2DManager {
     s_instance = null;
   }
 
+  public getModelNames(): string[]{
+    return LAppDefine.ModelDir;
+  } 
+
   /**
    * 現在のシーンで保持しているモデルを返す。
    *

@@ -223,7 +223,6 @@ export class LAppView {
         LAppPal.printMessage(`[APP]touchesEnded x: ${x} y: ${y}`);
       }
       live2DManager.onTap(x, y);
-      console.log(this._touchManager.getX(),pointX)
 
       // 歯車にタップしたか
       if (this._gear.isHit(pointX, pointY)) {

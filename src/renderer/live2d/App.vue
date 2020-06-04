@@ -28,13 +28,13 @@ body,
 }
 
 .left {
-  width: 220px;
+  width: 300px;
   height: 100%;
 }
 .right {
   position: absolute;
   top: 0;
-  left: 220px;
+  left: 300px;
   right: 0;
   height: 100%;
 }
