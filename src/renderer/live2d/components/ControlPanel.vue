@@ -26,15 +26,15 @@ export default {
     return {
       modelDisplayOps: [
         {
-          title: "Scale",
-          default: 1.3,
+          title: "scale",
+          default: 1.5,
           min: 0.5,
           max: 5,
           step: 0.1,
           onInputMethod: this.setScale
         },
         {
-          title: "X",
+          title: "x axis",
           default: 0,
           min: -3,
           max: 3,
@@ -42,7 +42,7 @@ export default {
           onInputMethod: this.setX
         },
         {
-          title: "Y",
+          title: "y axis",
           default: 0,
           min: -5,
           max: 5,

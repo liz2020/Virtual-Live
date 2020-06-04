@@ -52,6 +52,7 @@ span {
   width: 40%;
   margin: 1%;
   background-color: #f1f1f1;
+  font-size: 1em;
 }
 .range {
   width: 45%;
