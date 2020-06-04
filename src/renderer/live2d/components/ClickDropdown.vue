@@ -1,6 +1,13 @@
 <template>
   <div class="dropdown">
-    <button @click="expandDropdown" class="dropbtn">{{ title }}</button>
+    <button @click="expandDropdown" class="dropbtn">
+      <div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+      </div>
+      <div class="title">{{ title }}</div>
+    </button>
     <div ref="dropdownList" class="dropdown-content">
       <slot></slot>
     </div>
@@ -38,6 +45,18 @@ export default {
 </script>
 
 <style scoped>
+.icon {
+  width: 13px;
+  height: 2px;
+  background-color: white;
+  margin: 3px 1px 1px 3px;
+}
+
+.title {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* https://www.w3schools.com/howto/howto_js_dropdown.asp */
 /* Dropdown Button */
 .dropbtn {
@@ -47,6 +66,7 @@ export default {
   font-size: 16px;
   border: none;
   cursor: pointer;
+  display: flex;
 }
 
 /* Dropdown button on hover & focus */
