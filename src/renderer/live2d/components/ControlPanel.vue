@@ -1,30 +1,16 @@
 <template>
   <div id="ControlPanelContainer" class="scroll">
     <ModelSelector></ModelSelector>
-    <input
-      v-model="scale"
-      type="range"
-      min="0.5"
-      max="5"
-      step="0.1"
-      @input="setScale"
-    />
-    <input
-      v-model="pos_x"
-      type="range"
-      min="-3"
-      max="3"
-      step="0.01"
-      @input="setX"
-    />
-    <input
-      v-model="pos_y"
-      type="range"
-      min="-5"
-      max="5"
-      step="0.01"
-      @input="setY"
-    />
+    <RangeSlider
+      v-for="modelDisplay in modelDisplayOps"
+      :key="modelDisplay.title"
+      :title="modelDisplay.title"
+      :default="modelDisplay.default"
+      :min="modelDisplay.min"
+      :max="modelDisplay.max"
+      :step="modelDisplay.step"
+      :onInputMethod="modelDisplay.onInputMethod"
+    ></RangeSlider>
     <button v-on:click="reset">重置</button>
   </div>
 </template>
@@ -32,36 +18,55 @@
 <script>
 import { LAppDelegate } from "@live2d/lapp/lappdelegate";
 import ModelSelector from "@live2d/components/ModelSelector";
+import RangeSlider from "@live2d/components/RangeSlider";
 export default {
   name: "ControlPanel",
-  components: { ModelSelector },
+  components: { ModelSelector, RangeSlider },
   data: function() {
     return {
-      scale: 1.3,
-      pos_x: 0,
-      pos_y: 0
+      modelDisplayOps: [
+        {
+          title: "Scale",
+          default: 1.3,
+          min: 0.5,
+          max: 5,
+          step: 0.1,
+          onInputMethod: this.setScale
+        },
+        {
+          title: "X",
+          default: 0,
+          min: -3,
+          max: 3,
+          step: 0.01,
+          onInputMethod: this.setX
+        },
+        {
+          title: "Y",
+          default: 0,
+          min: -5,
+          max: 5,
+          step: 0.01,
+          onInputMethod: this.setY
+        }
+      ]
     };
   },
   mounted: function() {
     this.reset();
   },
   methods: {
-    setScale() {
-      LAppDelegate.getInstance().setL2D_Scale(this.scale);
+    setScale(scale) {
+      LAppDelegate.getInstance().setL2D_Scale(scale);
     },
-    setX() {
-      LAppDelegate.getInstance().setL2D_X(this.pos_x);
+    setX(pos_x) {
+      LAppDelegate.getInstance().setL2D_X(pos_x);
     },
-    setY() {
-      LAppDelegate.getInstance().setL2D_Y(this.pos_y);
+    setY(pos_y) {
+      LAppDelegate.getInstance().setL2D_Y(pos_y);
     },
     reset() {
-      this.scale = 1.3;
-      this.pos_x = 0;
-      this.pos_y = 0;
-      this.setScale();
-      this.setX();
-      this.setY();
+      this.$emit("reset");
     }
   }
 };

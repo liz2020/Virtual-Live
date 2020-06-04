@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "dropDownItem",
+  name: "DropDownItem",
   props: ["model", "index", "responseMethod"]
 };
 </script>

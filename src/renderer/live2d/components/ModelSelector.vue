@@ -1,6 +1,6 @@
 <template>
   <ClickDropdown :title="title">
-    <dropdownModelItem
+    <DropdownModelItem
       v-for="(model, index) in models"
       :key="index"
       :model="model"
@@ -12,12 +12,12 @@
 
 <script>
 import ClickDropdown from "@live2d/components/ClickDropdown";
-import dropdownModelItem from "@live2d/components/dropdownModelItem";
+import DropdownModelItem from "@live2d/components/DropdownModelItem";
 import { LAppLive2DManager } from "@live2d/lapp/lapplive2dmanager";
 import * as LAppDefine from "@live2d/lapp/lappdefine";
 export default {
   name: "ModelSelector",
-  components: { ClickDropdown, dropdownModelItem },
+  components: { ClickDropdown, DropdownModelItem },
   data: function() {
     return {
       models: undefined,
