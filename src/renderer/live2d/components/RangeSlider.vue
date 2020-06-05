@@ -50,7 +50,9 @@ div {
 }
 span {
   width: 40%;
-  margin: 1%;
+  margin-top: 1%;
+  margin-right: 1%;
+  padding-left: 5px;
   background-color: #f1f1f1;
   font-size: 1em;
 }

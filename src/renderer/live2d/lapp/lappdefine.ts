@@ -22,19 +22,10 @@ export const ViewLogicalMaxRight = 2.0;
 export const ViewLogicalMaxBottom = -2.0;
 export const ViewLogicalMaxTop = 2.0;
 
-// 相対パス
+// 相対パス relative path
 export const ResourcesPath = 'static/Live2dAssets/';
 
-// モデルの後ろにある背景の画像ファイル
-export const BackImageName = 'back_class_normal.png';
-
-// 歯車
-export const GearImageName = 'icon_gear.png';
-
-// 終了ボタン
-export const PowerImageName = 'CloseNormal.png';
-
-// モデル定義---------------------------------------------
+// モデル定義 model setting---------------------------------------------
 // モデルを配置したディレクトリ名の配列
 // ディレクトリ名とmodel3.jsonの名前を一致させておくこと
 export const ModelDir: string[] = ['Haru', 'Hiyori', 'Mark', 'Natori', 'Rice'];

@@ -13,7 +13,6 @@ import { TouchManager } from './touchmanager';
 import { LAppLive2DManager } from './lapplive2dmanager';
 import { LAppDelegate, canvas, gl } from './lappdelegate';
 import { LAppSprite } from './lappsprite';
-import { TextureInfo } from './lapptexturemanager';
 import { LAppPal } from './lapppal';
 import * as LAppDefine from './lappdefine';
 
@@ -121,27 +120,6 @@ export class LAppView {
 
     const textureManager = LAppDelegate.getInstance().getTextureManager();
     const resourcesPath = LAppDefine.ResourcesPath;
-
-    let imageName = '';
-
-    // 背景画像初期化
-    imageName = LAppDefine.BackImageName;
-
-    // 非同期なのでコールバック関数を作成
-    const initBackGroundTexture = (textureInfo: TextureInfo): void => {
-      const x: number = width * 0.5;
-      const y: number = height * 0.5;
-
-      const fwidth = textureInfo.width * 2.0;
-      const fheight = height * 0.95;
-      this._back = new LAppSprite(x, y, fwidth, fheight, textureInfo.id);
-    };
-
-    textureManager.createTextureFromPngFile(
-      resourcesPath + imageName,
-      false,
-      initBackGroundTexture
-    );
 
     // シェーダーを作成 (create shader)
     if (this._programId == null) {

@@ -558,6 +558,7 @@ export class LAppModel extends CubismUserModel {
 
     // ex) idle_0
     const name = `${group}_${no}`;
+    console.log("motion name", name);
     let motion: CubismMotion = this._motions.getValue(name) as CubismMotion;
     let autoDelete = false;
 
@@ -663,6 +664,7 @@ export class LAppModel extends CubismUserModel {
     for (let i = 0; i < this._expressions.getSize(); i++) {
       if (i == no) {
         const name: string = this._expressions._keyValues[i].first;
+        console.log("expression name",name);
         this.setExpression(name);
         return;
       }

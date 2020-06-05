@@ -29,7 +29,7 @@ export default {
           title: "scale",
           default: 1.5,
           min: 0.5,
-          max: 5,
+          max: 2.5,
           step: 0.1,
           onInputMethod: this.setScale
         },
