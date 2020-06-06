@@ -7,7 +7,7 @@
       <div class="green" @click="changeColor(green)"></div>
       <div class="blue" @click="changeColor(blue)"></div>
       <button class="customColor" @click="togglePicker">
-        {{ hint }}
+        {{ pickerDescription }}
       </button>
     </div>
     <div
@@ -29,12 +29,15 @@ export default {
     return {
       green: [0, 177, 64],
       blue: [0, 71, 187],
-      colorPicker: undefined
+      colorPicker: undefined,
+      hidePicker: true
     };
   },
   computed: {
-    hint: function() {
-      return this.$t("message")["live2d.components.ColorPicker.expand"];
+    pickerDescription: function() {
+      return this.hidePicker
+        ? this.$t("message")["live2d.components.ColorPicker.expand"]
+        : this.$t("message")["live2d.components.ColorPicker.close"];
     }
   },
   mounted: function() {
@@ -43,6 +46,7 @@ export default {
       this.parseAndChangeColor(color);
     });
     this.colorPicker.toggle();
+    this.description = this.expand;
   },
   methods: {
     changeColor(color255) {
@@ -57,10 +61,7 @@ export default {
     },
     togglePicker() {
       this.colorPicker.toggle();
-      this.hint =
-        this.hint == this.$t("message")["live2d.components.ColorPicker.expand"]
-          ? this.$t("message")["live2d.components.ColorPicker.close"]
-          : this.$t("message")["live2d.components.ColorPicker.expand"];
+      this.hidePicker = !this.hidePicker;
     }
   }
 };
