@@ -4,6 +4,7 @@ import App from "./App";
 import store from "./store";
 
 import VueI18n from "vue-i18n";
+import queryString from "query-string";
 import zhCN from "@live2d/locale/zhCN";
 import enUS from "@live2d/locale/enUS";
 
@@ -14,7 +15,7 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-  locale: "enUS",
+  locale: queryString.parse(location.search).locale || "enUS",
   messages: {
     zhCN: { message: zhCN },
     enUS: { message: enUS }

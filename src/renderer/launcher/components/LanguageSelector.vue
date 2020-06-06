@@ -88,15 +88,17 @@ export default {
 }
 
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content div {
   color: black;
-  padding: 12px 16px;
+  height: 20px;
   text-decoration: none;
   display: block;
+  text-align: center;
+  padding: 1px;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content div:hover {
   background-color: #ddd;
 }
 
