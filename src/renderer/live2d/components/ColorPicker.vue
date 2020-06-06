@@ -1,25 +1,58 @@
 <template>
-  <div class="wrapper">
-    <div class="title">{{ title }}</div>
-    <div class="green" @click="changeColor(green)"></div>
-    <div class="blue" @click="changeColor(blue)"></div>
+  <div>
+    <div class="wrapper">
+      <div class="title">{{ title }}</div>
+      <div class="green" @click="changeColor(green)"></div>
+      <div class="blue" @click="changeColor(blue)"></div>
+      <button class="customColor" @click="togglePicker">
+        {{ hint }}
+      </button>
+    </div>
+    <div
+      clreass="picker"
+      ref="picker"
+      acp-color="#EFE9E7"
+      acp-show-hsl="no"
+      acp-sl-bar-size="276,190"
+    ></div>
   </div>
 </template>
 
 <script>
 import { LAppDelegate } from "@live2d/lapp/lappdelegate";
+const AColorPicker = require("a-color-picker");
 export default {
   name: "ColorPicker",
   data: function() {
     return {
       title: "color",
-      green: [0, 177 / 255.0, 64 / 255.0],
-      blue: [0, 71 / 255.0, 187 / 255.0]
+      green: [0, 177, 64],
+      blue: [0, 71, 187],
+      colorPicker: undefined,
+      hint: "expand"
     };
   },
+  mounted: function() {
+    this.colorPicker = AColorPicker.createPicker(this.$refs["picker"]);
+    this.colorPicker.on("change", (picker, color) => {
+      this.parseAndChangeColor(color);
+    });
+    this.colorPicker.toggle();
+  },
   methods: {
-    changeColor(newColor) {
-      LAppDelegate.getInstance().setBackgroundColor(newColor);
+    changeColor(color255) {
+      let normalizedColor = [0.0, 0.0, 0.0];
+      for (var i = 0; i < color255.length; i++) {
+        normalizedColor[i] = color255[i] / 255.0;
+      }
+      LAppDelegate.getInstance().setBackgroundColor(normalizedColor);
+    },
+    parseAndChangeColor(colorPickerOutput) {
+      this.changeColor(AColorPicker.parseColor(colorPickerOutput, "rgb"));
+    },
+    togglePicker() {
+      this.colorPicker.toggle();
+      this.hint = this.hint == "expand" ? "close" : "expand";
     }
   }
 };
@@ -31,8 +64,11 @@ export default {
   margin: 1px;
   width: 100%;
 }
+.picker {
+  width: 100%;
+}
 .title {
-  width: 40%;
+  width: 41%;
   margin-top: 1%;
   margin-right: 1%;
   padding-left: 5px;
@@ -41,12 +77,16 @@ export default {
 }
 .green {
   background-color: #00b140;
-  width: 30%;
-  margin: 1% 0 1% 0;
+  width: 20%;
+  margin: 1% 1% 1% 0;
 }
 .blue {
   background-color: #0047bb;
-  width: 30%;
-  margin: 1% 2% 1% 1%;
+  width: 20%;
+  margin: 1% 1% 1% 0;
+}
+.customColor {
+  width: 20%;
+  margin: 1% 2% 1% 0;
 }
 </style>

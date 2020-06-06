@@ -49,3 +49,7 @@ Use WordArt provided by http://www.zitiweb.com/ziti/859. This website claims the
 
 ### Mac keyboard and mouse monitoring
 Existing node module [iohook](https://wilix-team.github.io/iohook/usage.html) provides supports for all three platforms. Just using the module is not enough, and I still need to read some materials to understand the reasoning behind it. 
+
+### Color Picker
+https://narsenico.github.io/a-color-picker/
+https://github.com/narsenico/a-color-picker/pull/16
