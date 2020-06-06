@@ -8,9 +8,15 @@
 <script>
 import ChromaKey from "@live2d/components/ChromaKey";
 import ControlPanel from "@live2d/components/ControlPanel";
+import { ipcRenderer } from "electron";
 export default {
   name: "live2d",
-  components: { ChromaKey, ControlPanel }
+  components: { ChromaKey, ControlPanel },
+  mounted: function() {
+    ipcRenderer.on("setLanguage", (event, locale) => {
+      this.$i18n.locale = locale;
+    });
+  }
 };
 </script>
 

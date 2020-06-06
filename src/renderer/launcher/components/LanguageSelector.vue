@@ -1,15 +1,9 @@
 <template>
   <div class="dropdown">
-    <button @click="expandDropdown" class="dropbtn">
-      <div>
-        <div class="icon"></div>
-        <div class="icon"></div>
-        <div class="icon"></div>
-      </div>
-      <div class="title">{{ title }}</div>
-    </button>
+    <button @click="expandDropdown" class="dropbtn">{{ title }}</button>
     <div ref="dropdownList" class="dropdown-content">
-      <slot></slot>
+      <div @click="setTitleAndLang('zhCN')">简体中文</div>
+      <div @click="setTitleAndLang('enUS')">English</div>
     </div>
   </div>
 </template>
@@ -17,14 +11,26 @@
 <script>
 import { debounce } from "@/utill";
 export default {
-  props: ["title"],
+  props: ["initLocale", "onClick"],
+  data: function() {
+    return {
+      title: undefined
+    };
+  },
   created() {
     window.addEventListener("click", debounce(this.hideDropdown, 100));
   },
   destroyed() {
     window.removeEventListener("click", this.hideDropdown);
   },
+  mounted: function() {
+    this.title = this.initLocale == "zhCN" ? "简体中文" : "English";
+  },
   methods: {
+    setTitleAndLang(locale) {
+      this.title = locale == "zhCN" ? "简体中文" : "English";
+      this.onClick(locale);
+    },
     expandDropdown() {
       this.$refs["dropdownList"].classList.toggle("show");
     },
@@ -45,18 +51,6 @@ export default {
 </script>
 
 <style scoped>
-.icon {
-  width: 13px;
-  height: 2px;
-  background-color: white;
-  margin: 3px 1px 1px 3px;
-}
-
-.title {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* https://www.w3schools.com/howto/howto_js_dropdown.asp */
 /* Dropdown Button */
 .dropbtn {
@@ -67,6 +61,7 @@ export default {
   border: none;
   cursor: pointer;
   display: flex;
+  justify-content: center;
 }
 
 /* Dropdown button on hover & focus */
@@ -79,6 +74,7 @@ export default {
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-top: 5px;
 }
 
 /* Dropdown Content (Hidden by Default) */

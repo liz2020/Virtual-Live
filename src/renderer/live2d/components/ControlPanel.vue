@@ -12,7 +12,9 @@
       :onInputMethod="modelDisplay.onInputMethod"
     ></RangeSlider>
     <ColorPicker></ColorPicker>
-    <button v-on:click="reset">重置</button>
+    <button v-on:click="reset">
+      {{ $t("message")["live2d.components.ControlPanel.reset"] }}
+    </button>
   </div>
 </template>
 
@@ -24,11 +26,11 @@ import ColorPicker from "@live2d/components/ColorPicker";
 export default {
   name: "ControlPanel",
   components: { ModelSelector, RangeSlider, ColorPicker },
-  data: function() {
-    return {
-      modelDisplayOps: [
+  computed: {
+    modelDisplayOps: function() {
+      return [
         {
-          title: "scale",
+          title: this.$t("message")["live2d.components.ControlPanel.scale"],
           default: 1.5,
           min: 0.5,
           max: 2.5,
@@ -36,7 +38,7 @@ export default {
           onInputMethod: this.setScale
         },
         {
-          title: "x axis",
+          title: this.$t("message")["live2d.components.ControlPanel.x_axis"],
           default: 0,
           min: -3,
           max: 3,
@@ -44,15 +46,15 @@ export default {
           onInputMethod: this.setX
         },
         {
-          title: "y axis",
+          title: this.$t("message")["live2d.components.ControlPanel.y_axis"],
           default: 0,
           min: -5,
           max: 5,
           step: 0.01,
           onInputMethod: this.setY
         }
-      ]
-    };
+      ];
+    }
   },
   mounted: function() {
     this.reset();

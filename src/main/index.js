@@ -19,7 +19,7 @@ const winURL =
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    height: 220,
+    height: 230,
     width: 200,
     resizable: false,
     title: "Atelier Pumpkin"
@@ -32,7 +32,7 @@ function createWindow() {
   });
 }
 
-function launchLive2d() {
+function launchLive2d(locale) {
   if (live2dWindow) {
     return;
   }
@@ -42,8 +42,8 @@ function launchLive2d() {
     width: 950,
     show: false
   });
-
-  live2dWindow.loadURL(winURL + "live2d.html");
+  let appendQuery = locale ? "?locale=" + locale : "";
+  live2dWindow.loadURL(winURL + "live2d.html" + appendQuery);
 
   live2dWindow.once("ready-to-show", () => {
     live2dWindow.show();
@@ -68,8 +68,12 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("launch-live2d", () => {
-  launchLive2d();
+ipcMain.on("launch-live2d", (event, locale) => {
+  launchLive2d(locale);
+});
+
+ipcMain.on("setLanguage", (event, locale) => {
+  live2dWindow.webContents.send("setLanguage", locale);
 });
 
 /**

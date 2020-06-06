@@ -21,7 +21,7 @@ export default {
   data: function() {
     return {
       models: undefined,
-      title: "模型"
+      title: undefined
     };
   },
   mounted: function() {

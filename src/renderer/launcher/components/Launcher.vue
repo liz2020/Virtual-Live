@@ -3,25 +3,38 @@
     <main>
       <img id="logo" src="@launcher/assets/pumpkin_logo.png" alt="南瓜重工" />
       <button @click="launchLive2d">
-        Live2d viewer
+        {{ $t("message")["launcher.components.Launcher.live2d"] }}
       </button>
       <button class="alt">
-        Bongo Cat
+        {{ $t("message")["launcher.components.Launcher.bongoCat"] }}
       </button>
+      <LanguageSelector
+        :onClick="setLanguage"
+        :initlocal="locale"
+      ></LanguageSelector>
     </main>
   </div>
 </template>
 
 <script>
 import { ipcRenderer } from "electron";
+import LanguageSelector from "@launcher/components/LanguageSelector";
 export default {
   name: "launcher",
+  components: { LanguageSelector },
+  data: function() {
+    return {
+      locale: "enUS"
+    };
+  },
   methods: {
-    open(link) {
-      this.$electron.shell.openExternal(link);
-    },
     launchLive2d() {
-      ipcRenderer.send("launch-live2d");
+      ipcRenderer.send("launch-live2d", this.locale);
+    },
+    setLanguage(locale) {
+      this.locale = locale;
+      this.$i18n.locale = locale;
+      ipcRenderer.send("setLanguage", this.locale);
     }
   }
 };

@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="wrapper">
-      <div class="title">{{ title }}</div>
+      <div class="title">
+        {{ $t("message")["live2d.components.ColorPicker.color"] }}
+      </div>
       <div class="green" @click="changeColor(green)"></div>
       <div class="blue" @click="changeColor(blue)"></div>
       <button class="customColor" @click="togglePicker">
@@ -25,12 +27,15 @@ export default {
   name: "ColorPicker",
   data: function() {
     return {
-      title: "color",
       green: [0, 177, 64],
       blue: [0, 71, 187],
-      colorPicker: undefined,
-      hint: "expand"
+      colorPicker: undefined
     };
+  },
+  computed: {
+    hint: function() {
+      return this.$t("message")["live2d.components.ColorPicker.expand"];
+    }
   },
   mounted: function() {
     this.colorPicker = AColorPicker.createPicker(this.$refs["picker"]);
@@ -52,7 +57,10 @@ export default {
     },
     togglePicker() {
       this.colorPicker.toggle();
-      this.hint = this.hint == "expand" ? "close" : "expand";
+      this.hint =
+        this.hint == this.$t("message")["live2d.components.ColorPicker.expand"]
+          ? this.$t("message")["live2d.components.ColorPicker.close"]
+          : this.$t("message")["live2d.components.ColorPicker.expand"];
     }
   }
 };
