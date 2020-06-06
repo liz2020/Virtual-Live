@@ -23,6 +23,7 @@ export let frameBuffer: WebGLFramebuffer = null;
 export let L2D_Scale:number = 1.0;
 export let L2D_X:number = 0.0;
 export let L2D_Y:number = 0.0;
+export let backgrondColor: number[] = [0, 177/255.0, 64/255.0]; //  Chroma key green (0, 177, 64)
 
 /**
  * アプリケーションクラス。
@@ -64,6 +65,10 @@ export class LAppDelegate {
 
   public setL2D_Scale(scale:number):void{
     L2D_Scale = scale;
+  }
+
+  public setBackgroundColor(colorArray:number[]):void{
+    backgrondColor = colorArray;
   }
 
   public onWindowResize(){
@@ -160,7 +165,7 @@ export class LAppDelegate {
       LAppPal.updateTime();
 
       // 画面の初期化
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clearColor(backgrondColor[0], backgrondColor[1], backgrondColor[2], 1.0);
 
       // 深度テストを有効化
       gl.enable(gl.DEPTH_TEST);

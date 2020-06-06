@@ -11,6 +11,7 @@
       :step="modelDisplay.step"
       :onInputMethod="modelDisplay.onInputMethod"
     ></RangeSlider>
+    <ColorPicker></ColorPicker>
     <button v-on:click="reset">重置</button>
   </div>
 </template>
@@ -19,9 +20,10 @@
 import { LAppDelegate } from "@live2d/lapp/lappdelegate";
 import ModelSelector from "@live2d/components/ModelSelector";
 import RangeSlider from "@live2d/components/RangeSlider";
+import ColorPicker from "@live2d/components/ColorPicker";
 export default {
   name: "ControlPanel",
-  components: { ModelSelector, RangeSlider },
+  components: { ModelSelector, RangeSlider, ColorPicker },
   data: function() {
     return {
       modelDisplayOps: [
