@@ -73,7 +73,9 @@ ipcMain.on("launch-live2d", (event, locale) => {
 });
 
 ipcMain.on("setLanguage", (event, locale) => {
-  live2dWindow.webContents.send("setLanguage", locale);
+  if (live2dWindow) {
+    live2dWindow.webContents.send("setLanguage", locale);
+  }
 });
 
 /**
