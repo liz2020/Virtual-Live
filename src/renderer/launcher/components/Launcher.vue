@@ -8,10 +8,7 @@
       <button class="alt">
         {{ $t("message")["launcher.components.Launcher.bongoCat"] }}
       </button>
-      <LanguageSelector
-        :onClick="setLanguage"
-        :initlocal="locale"
-      ></LanguageSelector>
+      <LanguageSelector :onClick="setLanguage"></LanguageSelector>
     </main>
   </div>
 </template>
@@ -19,22 +16,19 @@
 <script>
 import { ipcRenderer } from "electron";
 import LanguageSelector from "@launcher/components/LanguageSelector";
+import { UserConfig } from "@/config";
+
 export default {
   name: "launcher",
   components: { LanguageSelector },
-  data: function() {
-    return {
-      locale: "enUS"
-    };
-  },
   methods: {
     launchLive2d() {
       ipcRenderer.send("launch-live2d", this.locale);
     },
     setLanguage(locale) {
-      this.locale = locale;
+      UserConfig.getInstance().set("locale", locale);
       this.$i18n.locale = locale;
-      ipcRenderer.send("setLanguage", this.locale);
+      ipcRenderer.send("setLanguage", locale);
     }
   }
 };

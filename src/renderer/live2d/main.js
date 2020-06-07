@@ -4,9 +4,10 @@ import App from "./App";
 import store from "./store";
 
 import VueI18n from "vue-i18n";
-import queryString from "query-string";
 import zhCN from "@live2d/locale/zhCN";
 import enUS from "@live2d/locale/enUS";
+
+import { UserConfig } from "@/config";
 
 if (!process.env.IS_WEB) Vue.use(require("vue-electron"));
 Vue.http = Vue.prototype.$http = axios;
@@ -15,7 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-  locale: queryString.parse(location.search).locale || "enUS",
+  locale: UserConfig.getInstance().get("locale") || "enUS",
   messages: {
     zhCN: { message: zhCN },
     enUS: { message: enUS }

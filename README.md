@@ -58,3 +58,7 @@ Existing node module [iohook](https://wilix-team.github.io/iohook/usage.html) pr
 - [editor menual](https://docs.live2d.com/cubism-editor-manual/top/)
 - [Parameters standard](https://docs.live2d.com/cubism-editor-manual/standard-parametor-list/)
 - [Parameters operation](https://docs.live2d.com/cubism-sdk-manual/parameters/)
+
+### Persistent User Data
+- https://medium.com/cameron-nokes/how-to-store-user-data-in-electron-3ba6bf66bc1e
+- https://github.com/sindresorhus/electron-store

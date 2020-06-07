@@ -10,11 +10,15 @@
 
 <script>
 import { debounce } from "@/utill";
+import { UserConfig } from "@/config";
 export default {
   props: ["initLocale", "onClick"],
   data: function() {
     return {
-      title: undefined
+      title:
+        UserConfig.getInstance().get("locale") == "zhCN"
+          ? "简体中文"
+          : "English"
     };
   },
   created() {
@@ -22,9 +26,6 @@ export default {
   },
   destroyed() {
     window.removeEventListener("click", this.hideDropdown);
-  },
-  mounted: function() {
-    this.title = this.initLocale == "zhCN" ? "简体中文" : "English";
   },
   methods: {
     setTitleAndLang(locale) {

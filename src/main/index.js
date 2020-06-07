@@ -42,10 +42,13 @@ function launchLive2d(locale) {
     width: 950,
     show: false
   });
-  let appendQuery = locale ? "?locale=" + locale : "";
-  live2dWindow.loadURL(winURL + "live2d.html" + appendQuery);
+
+  live2dWindow.loadURL(winURL + "live2d.html");
 
   live2dWindow.once("ready-to-show", () => {
+    if (locale) {
+      live2dWindow.webContents.send("setLanguage", locale);
+    }
     live2dWindow.show();
   });
 
