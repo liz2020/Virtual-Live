@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <Launcher></Launcher>
 </template>
 
 <script>
+import Launcher from "@launcher/components/Launcher";
 export default {
-  name: "AtelierPumpkin"
+  name: "AtelierPumpkin",
+  components: { Launcher }
 };
 </script>
 
