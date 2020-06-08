@@ -36,8 +36,8 @@ body,
 
 .left {
   width: 300px;
-  height: 100%;
 }
+
 .right {
   position: absolute;
   top: 0;

@@ -62,3 +62,7 @@ Existing node module [iohook](https://wilix-team.github.io/iohook/usage.html) pr
 ### Persistent User Data
 - https://medium.com/cameron-nokes/how-to-store-user-data-in-electron-3ba6bf66bc1e
 - https://github.com/sindresorhus/electron-store
+
+### CSS sticky bottom using flexbox
+- https://css-tricks.com/couple-takes-sticky-footer/
+- https://css-tricks.com/snippets/css/a-guide-to-flexbox/

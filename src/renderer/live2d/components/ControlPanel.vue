@@ -1,24 +1,29 @@
 <template>
-  <div id="ControlPanelContainer" class="scroll">
-    <ModelSelector></ModelSelector>
-    <RangeSlider
-      v-for="modelDisplay in modelDisplayOps"
-      :key="modelDisplay.title"
-      :title="modelDisplay.title"
-      :default="modelDisplay.default"
-      :min="modelDisplay.min"
-      :max="modelDisplay.max"
-      :step="modelDisplay.step"
-      :onInputMethod="modelDisplay.onInputMethod"
-    ></RangeSlider>
-    <ColorPicker></ColorPicker>
-    <div class="flexContainer">
-      <button class="btn resetBtn" v-on:click="reset">
-        {{ $t("message")["live2d.components.ControlPanel.reset"] }}
-      </button>
-      <button class="btn saveBtn" v-on:click="save">
-        {{ $t("message")["live2d.components.ControlPanel.save"] }}
-      </button>
+  <div id="ControlPanelContainer">
+    <div class="top scroll">
+      <ModelSelector></ModelSelector>
+      <RangeSlider
+        v-for="modelDisplay in modelDisplayOps"
+        :key="modelDisplay.title"
+        :title="modelDisplay.title"
+        :default="modelDisplay.default"
+        :min="modelDisplay.min"
+        :max="modelDisplay.max"
+        :step="modelDisplay.step"
+        :onInputMethod="modelDisplay.onInputMethod"
+      ></RangeSlider>
+      <ColorPicker></ColorPicker>
+      <div class="flexContainer">
+        <button class="btn resetBtn" v-on:click="reset">
+          {{ $t("message")["live2d.components.ControlPanel.reset"] }}
+        </button>
+        <button class="btn saveBtn" v-on:click="save">
+          {{ $t("message")["live2d.components.ControlPanel.save"] }}
+        </button>
+      </div>
+    </div>
+    <div class="bottom">
+      <Camera />
     </div>
   </div>
 </template>
@@ -28,9 +33,10 @@ import { LAppDelegate } from "@live2d/lapp/lappdelegate";
 import ModelSelector from "@live2d/components/ModelSelector";
 import RangeSlider from "@live2d/components/RangeSlider";
 import ColorPicker from "@live2d/components/ColorPicker";
+import Camera from "@live2d/components/Camera";
 export default {
   name: "ControlPanel",
-  components: { ModelSelector, RangeSlider, ColorPicker },
+  components: { ModelSelector, RangeSlider, ColorPicker, Camera },
   computed: {
     modelDisplayOps: function() {
       return [
@@ -96,6 +102,14 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.top {
+  flex: 1 1 auto; /*[ <‘flex-grow’> <‘flex-shrink’>? || <‘flex-basis’> ] */
+}
+
+.bottom {
+  flex-shrink: 0;
 }
 
 .scroll {
