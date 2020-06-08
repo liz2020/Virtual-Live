@@ -23,21 +23,27 @@
 </template>
 
 <script>
+import { UserConfig } from "@/config";
 export default {
   name: "RangeSlider",
   props: ["title", "default", "min", "max", "step", "onInputMethod"],
   data: function() {
     return {
-      sliderValue: this.default
+      sliderValue: UserConfig.getInstance().get(this.title) || this.default
     };
   },
   created: function() {
     this.$parent.$on("reset", this.reset);
+    this.$parent.$on("save", this.save);
   },
   methods: {
     reset() {
-      this.sliderValue = this.default;
+      this.sliderValue =
+        UserConfig.getInstance().get(this.title) || this.default;
       this.onInputMethod(this.sliderValue);
+    },
+    save() {
+      UserConfig.getInstance().set(this.title, this.sliderValue);
     }
   }
 };

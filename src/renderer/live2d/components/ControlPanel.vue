@@ -12,9 +12,14 @@
       :onInputMethod="modelDisplay.onInputMethod"
     ></RangeSlider>
     <ColorPicker></ColorPicker>
-    <button v-on:click="reset">
-      {{ $t("message")["live2d.components.ControlPanel.reset"] }}
-    </button>
+    <div class="flexContainer">
+      <button class="btn resetBtn" v-on:click="reset">
+        {{ $t("message")["live2d.components.ControlPanel.reset"] }}
+      </button>
+      <button class="btn saveBtn" v-on:click="save">
+        {{ $t("message")["live2d.components.ControlPanel.save"] }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -71,6 +76,9 @@ export default {
     },
     reset() {
       this.$emit("reset");
+    },
+    save() {
+      this.$emit("save");
     }
   }
 };
@@ -93,5 +101,29 @@ export default {
 .scroll {
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.btn {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin-right: 1%;
+}
+
+.resetBtn {
+  width: 20%;
+  color: #fff;
+  background-color: rgb(223, 76, 76);
+}
+
+.saveBtn {
+  width: 80%;
+  color: #fff;
+  background-color: #4fc08d;
+}
+
+.flexContainer {
+  margin-top: 5px;
+  display: flex;
 }
 </style>

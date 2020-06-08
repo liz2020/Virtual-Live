@@ -71,6 +71,10 @@ export class LAppDelegate {
     backgrondColor = colorArray;
   }
 
+  public getBackgroundColor():number[]{
+    return backgrondColor;
+  }
+
   public onWindowResize(){
     this._view.onWindowResize();
   }

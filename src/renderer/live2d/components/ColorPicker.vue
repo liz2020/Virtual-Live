@@ -13,7 +13,6 @@
     <div
       clreass="picker"
       ref="picker"
-      acp-color="#EFE9E7"
       acp-show-hsl="no"
       acp-sl-bar-size="276,190"
     ></div>
@@ -22,6 +21,7 @@
 
 <script>
 import { LAppDelegate } from "@live2d/lapp/lappdelegate";
+import { UserConfig } from "@/config";
 const AColorPicker = require("a-color-picker");
 export default {
   name: "ColorPicker",
@@ -32,6 +32,10 @@ export default {
       colorPicker: undefined,
       hidePicker: true
     };
+  },
+  created: function() {
+    this.$parent.$on("reset", this.reset);
+    this.$parent.$on("save", this.save);
   },
   computed: {
     pickerDescription: function() {
@@ -47,6 +51,7 @@ export default {
     });
     this.colorPicker.toggle();
     this.description = this.expand;
+    this.reset();
   },
   methods: {
     changeColor(color255) {
@@ -59,9 +64,27 @@ export default {
     parseAndChangeColor(colorPickerOutput) {
       this.changeColor(AColorPicker.parseColor(colorPickerOutput, "rgb"));
     },
+    color1ToColor255(color1) {
+      let transformedColor = [0.0, 0.0, 0.0];
+      for (var i = 0; i < color1.length; i++) {
+        transformedColor[i] = color1[i] * 255.0;
+      }
+      return transformedColor;
+    },
     togglePicker() {
       this.colorPicker.toggle();
       this.hidePicker = !this.hidePicker;
+    },
+    reset() {
+      this.colorPicker.color = UserConfig.getInstance().get("acp-color");
+      this.changeColor(AColorPicker.parseColor(this.colorPicker.color, "rgb"));
+    },
+    save() {
+      let currentColor = AColorPicker.parseColor(
+        this.color1ToColor255(LAppDelegate.getInstance().getBackgroundColor()),
+        "hex"
+      );
+      UserConfig.getInstance().set("acp-color", currentColor);
     }
   }
 };
@@ -97,5 +120,6 @@ export default {
 .customColor {
   width: 20%;
   margin: 1% 2% 1% 0;
+  cursor: pointer;
 }
 </style>
