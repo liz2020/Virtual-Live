@@ -2,7 +2,7 @@
   <canvas ref="ChromaKey">Chromakey</canvas>
 </template>
 
-<script lang="ts">
+<script>
 import { LAppDelegate } from "@live2d/lapp/lappdelegate";
 import { debounce } from "@/utill";
 export default {
@@ -24,7 +24,7 @@ export default {
     /**
      * ブラウザロード後の処理
      */
-    window.onload = (): void => {
+    window.onload = () => {
       // create the application instance
       if (LAppDelegate.getInstance().initialize(this.canvas) == false) {
         return;
@@ -36,7 +36,7 @@ export default {
     /**
      * 終了時の処理
      */
-    window.onbeforeunload = (): void => LAppDelegate.releaseInstance();
+    window.onbeforeunload = () => LAppDelegate.releaseInstance();
   },
   methods: {
     HandleWindowResize() {

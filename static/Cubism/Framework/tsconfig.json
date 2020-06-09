@@ -9,7 +9,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
   },
   "include": [
     "src/**/*.ts",
@@ -18,5 +18,6 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "types": []
 }

@@ -1,14 +1,28 @@
 <template>
-  <div>摄像机</div>
+  <div class="wrapper">
+    <div @click="startVideo">摄像机</div>
+    <video id="video" ref="video" autoplay muted></video>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Camera",
+  methods: {
+    startVideo() {
+      // console.log(navigator.getUserMedia.toString());
+    }
+  }
+};
 </script>
 
 <style scoped>
-div {
+.wrapper {
   width: 100%;
-  height: 200px;
+  height: 100%;
+}
+.video {
+  width: 100%;
+  height: 100%;
 }
 </style>

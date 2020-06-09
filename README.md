@@ -66,3 +66,7 @@ Existing node module [iohook](https://wilix-team.github.io/iohook/usage.html) pr
 ### CSS sticky bottom using flexbox
 - https://css-tricks.com/couple-takes-sticky-footer/
 - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+### @types from one submodule conflict with other module
+The solution is to add "types":[] in tsconfig.json under the "compilerOptions" block. See the following link
+- https://github.com/microsoft/TypeScript/issues/9731#issuecomment-250371776
