@@ -70,3 +70,9 @@ Existing node module [iohook](https://wilix-team.github.io/iohook/usage.html) pr
 ### @types from one submodule conflict with other module
 The solution is to add "types":[] in tsconfig.json under the "compilerOptions" block. See the following link
 - https://github.com/microsoft/TypeScript/issues/9731#issuecomment-250371776
+
+### Electron crash when calling getUserMedia 
+Use the native terminal instead of the one provided by VScode. The VScode one does not have camera access. 
+- https://github.com/electron/electron/issues/14801#issuecomment-615219188
+Reference for using media
+- https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia

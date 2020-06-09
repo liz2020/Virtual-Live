@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="bottom">
-      <Camera />
+      <FaceDetection />
     </div>
   </div>
 </template>
@@ -33,10 +33,10 @@ import { LAppDelegate } from "@live2d/lapp/lappdelegate";
 import ModelSelector from "@live2d/components/ModelSelector";
 import RangeSlider from "@live2d/components/RangeSlider";
 import ColorPicker from "@live2d/components/ColorPicker";
-import Camera from "@live2d/components/Camera";
+import FaceDetection from "@live2d/components/FaceDetection";
 export default {
   name: "ControlPanel",
-  components: { ModelSelector, RangeSlider, ColorPicker, Camera },
+  components: { ModelSelector, RangeSlider, ColorPicker, FaceDetection },
   computed: {
     modelDisplayOps: function() {
       return [
@@ -97,19 +97,20 @@ export default {
     rgba(255, 255, 255, 1) 40%,
     rgba(229, 229, 229, 0.9) 100%
   );
-  margin-left: 5px;
-  margin-top: 5px;
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .top {
+  margin-left: 5px;
+  margin-top: 5px;
   flex: 1 1 auto; /*[ <‘flex-grow’> <‘flex-shrink’>? || <‘flex-basis’> ] */
 }
 
 .bottom {
   flex-shrink: 0;
+  margin-bottom: 0;
 }
 
 .scroll {
