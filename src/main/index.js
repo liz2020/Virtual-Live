@@ -12,12 +12,18 @@ if (process.env.NODE_ENV !== "development") {
 
 let mainWindow;
 let live2dWindow;
+let detectionWorker;
 const winURL =
   process.env.NODE_ENV === "development"
     ? `http://localhost:9080/`
     : `file://${__dirname}/`;
 
+/* create windows ------------------------------------- */
+
 function createWindow() {
+  if (mainWindow) {
+    return;
+  }
   mainWindow = new BrowserWindow({
     height: 230,
     width: 200,
@@ -32,7 +38,7 @@ function createWindow() {
   });
 }
 
-function launchLive2d(locale) {
+function createLive2d(locale) {
   if (live2dWindow) {
     return;
   }
@@ -57,6 +63,39 @@ function launchLive2d(locale) {
   });
 }
 
+function createDetectionWorker(deviceId) {
+  if (detectionWorker) {
+    return;
+  }
+
+  detectionWorker = new BrowserWindow({
+    // show: false,
+    webPreferences: { nodeIntegration: true }
+  });
+
+  detectionWorker.loadURL(winURL + "detection.html");
+
+  detectionWorker.on("ready-to-show", () => {
+    deviceId.webContents.send("setVideoDevice", deviceId);
+  });
+
+  detectionWorker.on("closed", () => {
+    detectionWorker = null;
+  });
+}
+
+/* wrapper methods ------------------------------------- */
+
+function sendWindowMessage(targetWindow, message, payload) {
+  if (typeof targetWindow === "undefined") {
+    console.log("Target window does not exist");
+    return;
+  }
+  targetWindow.webContents.send(message, payload);
+}
+
+/* on methods ------------------------------------------ */
+
 app.on("ready", createWindow);
 
 app.on("window-all-closed", () => {
@@ -71,15 +110,26 @@ app.on("activate", () => {
   }
 });
 
+/* ipc communications ---------------------------------- */
+
 ipcMain.on("launch-live2d", (event, locale) => {
-  launchLive2d(locale);
+  createLive2d(locale);
+});
+
+ipcMain.on("launch-detection", (event, deviceId) => {
+  createDetectionWorker(deviceId);
 });
 
 ipcMain.on("setLanguage", (event, locale) => {
-  if (live2dWindow) {
-    live2dWindow.webContents.send("setLanguage", locale);
-  }
+  sendWindowMessage(live2dWindow, "setLanguage", locale);
 });
+
+// setup message channels
+ipcMain.on("window-message-from-worker", (event, arg) => {
+  sendWindowMessage(live2dWindow, "message-from-worker", arg);
+});
+
+/* ---------------------------------------------------- */
 
 /**
  * Auto Updater
