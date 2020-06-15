@@ -76,3 +76,8 @@ Use the native terminal instead of the one provided by VScode. The VScode one do
 - https://github.com/electron/electron/issues/14801#issuecomment-615219188
 Reference for using media
 - https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+
+### Face-api
+- https://github.com/justadudewhohacks/face-api.js
+- https://www.youtube.com/watch?v=CVClHLwv-4I
+- https://medium.com/@andreas.schallwig/do-not-laugh-a-simple-ai-powered-game-3e22ad0f8166

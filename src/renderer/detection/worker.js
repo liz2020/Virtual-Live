@@ -1,19 +1,11 @@
-// https://medium.com/@andreas.schallwig/do-not-laugh-a-simple-ai-powered-game-3e22ad0f8166
-const electron = require("electron");
-const ipcRenderer = electron.ipcRenderer;
-
+import { ipcRenderer } from "electron";
 import * as faceapi from "face-api.js";
 
-// init detection options
-const faceapiOptions = new faceapi.TinyFaceDetectorOptions();
+let faceapiOptions = null;
 
-// cam reference
-let cam;
-
-let isRunning = true;
 let isReady = false;
+let timmerId = null;
 
-// configure face API
 faceapi.env.monkeyPatch({
   Canvas: HTMLCanvasElement,
   Image: HTMLImageElement,
@@ -23,36 +15,126 @@ faceapi.env.monkeyPatch({
   createImageElement: () => document.createElement("img")
 });
 
-const loadNet = async () => {
-  await faceapi.nets.tinyFaceDetector.load("static/weights");
-  await faceapi.nets.faceLandmark68Net.loadFromUri("static/Weights/");
+Promise.all([
+  faceapi.nets.tinyFaceDetector.load("static/weights"),
+  faceapi.nets.faceLandmark68Net.loadFromUri("static/Weights/")
+]);
+
+/* ------------------------------------------------------------ */
+
+ipcRenderer.on("startDetection", (event, deviceId) => {
+  initCamera(deviceId).then(() => {
+    timmerId = setInterval(() => detectLandmark(), 1000);
+  });
+});
+
+ipcRenderer.on("stopDetection", () => {
+  if (timmerId) {
+    clearInterval(timmerId);
+  }
+  let cam = getVideo();
+  let stream = cam.srcObject;
+  cam.srcObject = null;
+  if (stream) {
+    stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+  }
+});
+
+ipcRenderer.on("setVideoDevice", (event, deviceId) => {
+  switchStream(deviceId);
+});
+
+ipcRenderer.on("setFaceOptions", (event, options) => {
+  setFaceOptions(options);
+});
+
+/* ------------------------------------------------------------ */
+let notifyRenderer = (command, payload) => {
+  ipcRenderer.send("window-message-from-worker", {
+    command: command,
+    payload: payload
+  });
 };
 
-const initCamera = async (width, height) => {
-  const video = document.getElementById("cam");
-  video.width = width;
-  video.height = height;
+let onReady = () => {
+  notifyRenderer("ready", {});
+};
+
+let onLandmark = detection => {
+  const Landmark = parseLandmark(detection);
+  notifyRenderer("Landmark", {
+    Landmark: Landmark
+  });
+};
+
+const parseLandmark = detection => {
+  let landmarks = detection["landmarks"];
+  let shift = landmarks["_shift"];
+  let positions = landmarks["_positions"];
+  return { shift: shift, points: positions };
+};
+
+const getFaceOptions = () => {
+  if (faceapiOptions == null) {
+    faceapiOptions = new faceapi.TinyFaceDetectorOptions();
+  }
+  return faceapiOptions;
+};
+
+const setFaceOptions = options => {
+  faceapiOptions = options;
+};
+
+const getVideo = () => {
+  return document.getElementById("cam");
+};
+/* ------------------------------------------------------------ */
+const initCamera = async deviceId => {
+  let cam = getVideo();
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      facingMode: "user",
+      deviceId: deviceId
+    }
+  });
+  cam.srcObject = stream;
+
+  return new Promise(resolve => {
+    cam.onloadedmetadata = () => {
+      resolve(cam);
+    };
+  });
+};
+
+const switchStream = async function(deviceId) {
+  console.log("switchSteram");
+  let cam = getVideo();
+
+  if (cam.srcObject == null) {
+    return;
+  }
 
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
     video: {
       facingMode: "user",
-      width: width,
-      height: height
+      deviceId: deviceId
     }
   });
-  video.srcObject = stream;
 
-  return new Promise(resolve => {
-    video.onloadedmetadata = () => {
-      resolve(video);
-    };
+  cam.srcObject.getTracks().forEach(function(track) {
+    track.stop();
   });
+
+  cam.srcObject = stream;
 };
 
 const detectLandmark = async () => {
   let result = await faceapi
-    .detectSingleFace(cam, faceapiOptions)
+    .detectSingleFace(getVideo(), getFaceOptions())
     .withFaceLandmarks();
 
   if (!isReady) {
@@ -60,40 +142,7 @@ const detectLandmark = async () => {
     onReady();
   }
 
-  if (typeof result !== "undefined") {
-    onLandmark();
-  }
-
-  if (isRunning) {
-    setTimeout(detectLandmark(), 100);
+  if (result != undefined) {
+    onLandmark(result);
   }
 };
-
-let onReady = () => {
-  notifyRenderer("ready", {});
-};
-
-let onLandmark = type => {
-  notifyRenderer("Landmark", {
-    type: type
-  });
-};
-
-let notifyRenderer = (command, payload) => {
-  // notify renderer
-  ipcRenderer.send("window-message-from-worker", {
-    command: command,
-    payload: payload
-  });
-};
-
-loadNet()
-  .then(() => {
-    console.log("Network has loaded");
-    return initCamera(640, 480);
-  })
-  .then(video => {
-    console.log("Camera was initialized");
-    cam = video;
-    detectLandmark();
-  });

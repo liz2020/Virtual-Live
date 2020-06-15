@@ -63,7 +63,7 @@ function createLive2d(locale) {
   });
 }
 
-function createDetectionWorker(deviceId) {
+function createDetectionWorker() {
   if (detectionWorker) {
     return;
   }
@@ -74,10 +74,6 @@ function createDetectionWorker(deviceId) {
   });
 
   detectionWorker.loadURL(winURL + "detection.html");
-
-  detectionWorker.on("ready-to-show", () => {
-    deviceId.webContents.send("setVideoDevice", deviceId);
-  });
 
   detectionWorker.on("closed", () => {
     detectionWorker = null;
@@ -116,8 +112,8 @@ ipcMain.on("launch-live2d", (event, locale) => {
   createLive2d(locale);
 });
 
-ipcMain.on("launch-detection", (event, deviceId) => {
-  createDetectionWorker(deviceId);
+ipcMain.on("launch-detection", () => {
+  createDetectionWorker();
 });
 
 ipcMain.on("setLanguage", (event, locale) => {
@@ -126,9 +122,20 @@ ipcMain.on("setLanguage", (event, locale) => {
 
 // setup message channels
 ipcMain.on("window-message-from-worker", (event, arg) => {
-  sendWindowMessage(live2dWindow, "message-from-worker", arg);
+  sendWindowMessage(live2dWindow, "window-message-from-worker", arg);
 });
 
+ipcMain.on("setVideoDevice", (event, deviceId) => {
+  sendWindowMessage(detectionWorker, "setVideoDevice", deviceId);
+});
+
+ipcMain.on("startDetection", (event, deviceId) => {
+  sendWindowMessage(detectionWorker, "startDetection", deviceId);
+});
+
+ipcMain.on("stopDetection", () => {
+  sendWindowMessage(detectionWorker, "stopDetection", null);
+});
 /* ---------------------------------------------------- */
 
 /**

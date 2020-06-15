@@ -2,7 +2,7 @@
   <div id="wrapper">
     <main>
       <img id="logo" src="@launcher/assets/pumpkin_logo.png" alt="南瓜重工" />
-      <button @click="launchLive2d">
+      <button @click="launchLive2dDetection">
         {{ $t("message")["launcher.components.Launcher.live2d"] }}
       </button>
       <button class="alt">
@@ -22,8 +22,9 @@ export default {
   name: "launcher",
   components: { LanguageSelector },
   methods: {
-    launchLive2d() {
+    launchLive2dDetection() {
       ipcRenderer.send("launch-live2d", this.locale);
+      ipcRenderer.send("launch-detection");
     },
     setLanguage(locale) {
       UserConfig.getInstance().set("locale", locale);
