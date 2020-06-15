@@ -28,8 +28,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ipcRenderer } from "electron";
+import {
+  resizeResults,
+  draw,
+  FaceLandmarks68,
+  Dimensions,
+  Point
+} from "face-api.js";
 export default {
   name: "FaceDetection",
   data: function() {
@@ -43,15 +50,47 @@ export default {
       this.videoDevices = data;
     });
     ipcRenderer.on("window-message-from-worker", (event, arg) => {
-      let detection = arg["payload"]["Landmark"];
-      if (detection) {
+      let detections = arg.payload.Landmark;
+      let typedLandmark = this.AddTypeToLandmark(detections.landmarks);
+      if (detections) {
         let canvas = this.$refs["canvas"];
         canvas.getContext("2d").clearRect(1, 1, canvas.width, canvas.height);
-        console.log(detection);
+        // canvas.getContext("2d").fillStyle = "black";
+        // canvas.getContext("2d").fillRect(0, 0, canvas.width, canvas.height);
+        console.log(typedLandmark);
+        const displaySize = { width: canvas.width, height: canvas.height };
+        const resizedLandmark = resizeResults(typedLandmark, displaySize);
+        console.log("resize", resizedLandmark);
+        draw.drawFaceLandmarks(canvas, resizedLandmark);
       }
     });
   },
   methods: {
+    AddTypeToLandmark: function(landmarks) {
+      // console.log(landmarks);
+      let typedPositions: Point[] = landmarks._positions.map(
+        pt => new Point(pt._x, pt._y)
+      );
+      let typedDim: Dimensions = new Dimensions(
+        landmarks._imgDims._height,
+        landmarks._imgDims._width
+      );
+      let typedShift: Point = new Point(
+        landmarks._shift._x,
+        landmarks._shift._y
+      );
+
+      landmarks._positions = typedPositions;
+      landmarks._shift = typedShift;
+      landmarks._imgDims = typedDim;
+
+      let typedLandmark = Object.assign(
+        new FaceLandmarks68(typedPositions, typedDim, typedShift),
+        landmarks
+      );
+      console.log(typedLandmark);
+      return typedLandmark;
+    },
     initCamera: async function() {
       let cam = this.$refs["video"];
       this.container = true;
