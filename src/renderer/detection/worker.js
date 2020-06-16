@@ -24,7 +24,7 @@ Promise.all([
 
 ipcRenderer.on("startDetection", (event, deviceId) => {
   initCamera(deviceId).then(() => {
-    timmerId = setInterval(() => detectLandmark(), 1000);
+    timmerId = setInterval(() => detectLandmark(), 300);
   });
 });
 
@@ -63,21 +63,10 @@ let onReady = () => {
 };
 
 let onLandmark = detection => {
-  // const Landmark = parseLandmark(detection);
-  console.log(detection);
   notifyRenderer("Landmark", {
     Landmark: detection
   });
 };
-
-// const parseLandmark = detection => {
-//   const width = detection["detection"]["imageWidth"];
-//   const height = detection["detection"]["imageHeight"];
-//   let landmarks = detection["landmarks"];
-//   let shift = landmarks["_shift"];
-//   let positions = landmarks["_positions"];
-//   return { shift: shift, points: positions, width: width, height: height };
-// };
 
 const getFaceOptions = () => {
   if (faceapiOptions == null) {
