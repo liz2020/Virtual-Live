@@ -60,10 +60,8 @@ export default {
         canvas.getContext("2d").clearRect(1, 1, canvas.width, canvas.height);
         // canvas.getContext("2d").fillStyle = "black";
         // canvas.getContext("2d").fillRect(0, 0, canvas.width, canvas.height);
-        console.log(typedDetections);
         const displaySize = { width: canvas.width, height: canvas.height };
         const resizedDetections = resizeResults(typedDetections, displaySize);
-        console.log("resize", resizedDetections);
         draw.drawFaceLandmarks(canvas, resizedDetections);
       }
     });

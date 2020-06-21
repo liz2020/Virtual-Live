@@ -17,6 +17,7 @@ export default {
     ipcRenderer.on("setLanguage", (event, locale) => {
       this.$i18n.locale = locale;
     });
+    ipcRenderer.send("launch-detection");
   }
 };
 </script>

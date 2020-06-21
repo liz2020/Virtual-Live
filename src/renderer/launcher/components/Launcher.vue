@@ -6,7 +6,7 @@
         {{ $t("message")["launcher.components.Launcher.live2d"] }}
       </button>
       <button class="alt">
-        {{ $t("message")["launcher.components.Launcher.bongoCat"] }}
+        {{ $t("message")["launcher.components.Launcher.tutorial"] }}
       </button>
       <LanguageSelector :onClick="setLanguage"></LanguageSelector>
     </main>
@@ -24,7 +24,6 @@ export default {
   methods: {
     launchLive2dDetection() {
       ipcRenderer.send("launch-live2d", this.locale);
-      ipcRenderer.send("launch-detection");
     },
     setLanguage(locale) {
       UserConfig.getInstance().set("locale", locale);

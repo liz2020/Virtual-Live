@@ -146,7 +146,7 @@ export class LAppLive2DManager {
 
     const { width, height } = canvas;
     projection.scale(L2D_Scale, width / height*L2D_Scale); //调整横竖比例
-    projection.translate(L2D_X,L2D_Y) //调整位移 参数是范围是[-1,1] 但注意页面x是[-1,1]但y是[-0.5,0.5] 所以坐标转换的时候y要除以二 
+    projection.translate(L2D_X,L2D_Y/2) //调整位移 参数是范围是[-1,1] 但注意页面x是[-1,1]但y是[-0.5,0.5] 所以坐标转换的时候y要除以二 
 
     if (this._viewMatrix != null) {
       projection.multiplyByMatrix(this._viewMatrix);

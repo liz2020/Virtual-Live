@@ -24,7 +24,7 @@ Promise.all([
 
 ipcRenderer.on("startDetection", (event, deviceId) => {
   initCamera(deviceId).then(() => {
-    timmerId = setInterval(() => detectLandmark(), 300);
+    timmerId = setInterval(() => detectLandmark(), 200);
   });
 });
 

@@ -1,4 +1,4 @@
 export default {
-  "launcher.components.Launcher.live2d": "虚拟形象",
-  "launcher.components.Launcher.bongoCat": "猫猫"
+  "launcher.components.Launcher.live2d": "Live2d",
+  "launcher.components.Launcher.tutorial": "使用教程"
 };

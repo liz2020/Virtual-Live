@@ -43,7 +43,7 @@ import CubismModelSettingJson = cubismmodelsettingjson.CubismModelSettingJson;
 import CubismDefaultParameterId = cubismdefaultparameterid;
 
 import { LAppPal } from './lapppal';
-import { gl, canvas, frameBuffer, LAppDelegate } from './lappdelegate';
+import { gl, canvas, frameBuffer, LAppDelegate, enableIdleMotion, enableBreath, enableAutoBlink} from './lappdelegate';
 import { TextureInfo } from './lapptexturemanager';
 import * as LAppDefine from './lappdefine';
 import 'whatwg-fetch';
@@ -234,9 +234,8 @@ export class LAppModel extends CubismUserModel {
     const setupEyeBlink = (): void => {
       if (this._modelSetting.getEyeBlinkParameterCount() > 0) {
         this._eyeBlink = CubismEyeBlink.create(this._modelSetting);
-        this._state = LoadStep.SetupBreath;
       }
-
+      this._state = LoadStep.SetupBreath;
       // callback
       setupBreath();
     };
@@ -460,10 +459,12 @@ export class LAppModel extends CubismUserModel {
     this._model.loadParameters(); // 前回セーブされた状態をロード
     if (this._motionManager.isFinished()) {
       // モーションの再生がない場合、待機モーションの中からランダムで再生する
-      this.startRandomMotion(
-        LAppDefine.MotionGroupIdle,
-        LAppDefine.PriorityIdle
-      );
+      if(enableIdleMotion){
+        this.startRandomMotion(
+          LAppDefine.MotionGroupIdle,
+          LAppDefine.PriorityIdle
+        );
+      }
     } else {
       motionUpdated = this._motionManager.updateMotion(
         this._model,
@@ -475,7 +476,7 @@ export class LAppModel extends CubismUserModel {
 
     // まばたき
     if (!motionUpdated) {
-      if (this._eyeBlink != null) {
+      if (enableAutoBlink && this._eyeBlink != null) {
         // メインモーションの更新がないとき
         this._eyeBlink.updateParameters(this._model, deltaTimeSeconds); // 目パチ
       }
@@ -505,7 +506,7 @@ export class LAppModel extends CubismUserModel {
     this._model.addParameterValueById(this._idParamEyeBallY, this._dragY);
 
     // 呼吸など
-    if (this._breath != null) {
+    if ( enableBreath && this._breath != null) {
       this._breath.updateParameters(this._model, deltaTimeSeconds);
     }
 

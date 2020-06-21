@@ -24,7 +24,9 @@ export let L2D_Scale:number = 1.0;
 export let L2D_X:number = 0.0;
 export let L2D_Y:number = 0.0;
 export let backgrondColor: number[] = [0, 177/255.0, 64/255.0]; //  Chroma key green (0, 177, 64)
-
+export let enableIdleMotion:boolean = false;
+export let enableBreath:boolean = false;
+export let enableAutoBlink:boolean = false;
 /**
  * アプリケーションクラス。
  * Cubism SDKの管理を行う。
@@ -73,6 +75,18 @@ export class LAppDelegate {
 
   public getBackgroundColor():number[]{
     return backgrondColor;
+  }
+
+  public setIdleMotion(state:boolean):void{
+    enableIdleMotion = state;
+  }
+
+  public setBreath(state:boolean):void{
+    enableBreath = state;
+  }
+
+  public setAutoBlink(state:boolean):void{
+    enableAutoBlink = state;
   }
 
   public onWindowResize(){

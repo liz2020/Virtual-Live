@@ -10,9 +10,9 @@ if (process.env.NODE_ENV !== "development") {
     .replace(/\\/g, "\\\\");
 }
 
-let mainWindow;
-let live2dWindow;
-let detectionWorker;
+let mainWindow = null;
+let live2dWindow = null;
+let detectionWorker = null;
 const winURL =
   process.env.NODE_ENV === "development"
     ? `http://localhost:9080/`
@@ -69,7 +69,7 @@ function createDetectionWorker() {
   }
 
   detectionWorker = new BrowserWindow({
-    // show: false,
+    show: false,
     webPreferences: { nodeIntegration: true }
   });
 
@@ -83,7 +83,7 @@ function createDetectionWorker() {
 /* wrapper methods ------------------------------------- */
 
 function sendWindowMessage(targetWindow, message, payload) {
-  if (typeof targetWindow === "undefined") {
+  if (targetWindow == null) {
     console.log("Target window does not exist");
     return;
   }
