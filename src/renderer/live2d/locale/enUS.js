@@ -6,5 +6,7 @@ export default {
   "live2d.components.ControlPanel.save": "save as default",
   "live2d.components.ColorPicker.color": "color",
   "live2d.components.ColorPicker.expand": "expand",
-  "live2d.components.ColorPicker.close": "close"
+  "live2d.components.ColorPicker.close": "close",
+  "live2d.components.FaceDetection.play": "play",
+  "live2d.components.FaceDetection.close": "close"
 };

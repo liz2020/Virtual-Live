@@ -6,5 +6,7 @@ export default {
   "live2d.components.ControlPanel.save": "存为默认",
   "live2d.components.ColorPicker.color": "颜色",
   "live2d.components.ColorPicker.expand": "展开",
-  "live2d.components.ColorPicker.close": "收起"
+  "live2d.components.ColorPicker.close": "收起",
+  "live2d.components.FaceDetection.play": "开始追踪",
+  "live2d.components.FaceDetection.close": "关闭"
 };
