@@ -22,6 +22,7 @@ import { Live2DCubismFramework as cubismmotionqueuemanager } from '@static/Cubis
 import { Live2DCubismFramework as csmstring } from '@static/Cubism/Framework/src/type/csmstring';
 import { Live2DCubismFramework as csmrect } from '@static/Cubism/Framework/src/type/csmrectf';
 import { CubismLogInfo } from '@static/Cubism/Framework/src/utils/cubismdebug';
+import { LAppLandmarks } from "./lappLandmarks";
 import csmRect = csmrect.csmRect;
 import csmString = csmstring.csmString;
 import InvalidMotionQueueEntryHandleValue = cubismmotionqueuemanager.InvalidMotionQueueEntryHandleValue;
@@ -439,6 +440,10 @@ export class LAppModel extends CubismUserModel {
     this.setupTextures();
   }
 
+  private closeToZero(num: number): boolean{
+    return num < 0.01 && num > -0.01
+  }
+
   /**
    * 更新
    */
@@ -448,9 +453,20 @@ export class LAppModel extends CubismUserModel {
     const deltaTimeSeconds: number = LAppPal.getDeltaTime();
     this._userTimeSeconds += deltaTimeSeconds;
 
+    let landmarkFactory = LAppLandmarks.getInstance("faceLandmark68");
+    this._yaw = landmarkFactory.getAngleX();
+    this._pitch = landmarkFactory.getAngleY();
+
     this._dragManager.update(deltaTimeSeconds);
     this._dragX = this._dragManager.getX();
     this._dragY = this._dragManager.getY();
+
+    if(!this.closeToZero(this._dragX) || !this.closeToZero(this._dragY)){
+      this._yaw = this._dragX;
+      this._pitch = this._dragY;
+    }
+
+    
 
     // モーションによるパラメータ更新の有無
     let motionUpdated = false;
@@ -488,22 +504,22 @@ export class LAppModel extends CubismUserModel {
 
     // ドラッグによる変化
     // ドラッグによる顔の向きの調整
-    this._model.addParameterValueById(this._idParamAngleX, this._dragX * 30); // -30から30の値を加える
-    this._model.addParameterValueById(this._idParamAngleY, this._dragY * 30);
+    this._model.addParameterValueById(this._idParamAngleX, this._yaw * 30); // -30から30の値を加える
+    this._model.addParameterValueById(this._idParamAngleY, this._pitch * 30);
     this._model.addParameterValueById(
       this._idParamAngleZ,
-      this._dragX * this._dragY * -30
+      this._yaw * this._pitch * -30
     );
 
     // ドラッグによる体の向きの調整
     this._model.addParameterValueById(
       this._idParamBodyAngleX,
-      this._dragX * 10
+      this._yaw * 10
     ); // -10から10の値を加える
 
     // ドラッグによる目の向きの調整
-    this._model.addParameterValueById(this._idParamEyeBallX, this._dragX); // -1から1の値を加える
-    this._model.addParameterValueById(this._idParamEyeBallY, this._dragY);
+    this._model.addParameterValueById(this._idParamEyeBallX, this._yaw); // -1から1の値を加える
+    this._model.addParameterValueById(this._idParamEyeBallY, this._pitch);
 
     // 呼吸など
     if ( enableBreath && this._breath != null) {
@@ -882,4 +898,7 @@ export class LAppModel extends CubismUserModel {
   _textureCount: number; // テクスチャカウント
   _motionCount: number; // モーションデータカウント
   _allMotionCount: number; // モーション総数
+
+  _yaw: number;
+  _pitch: number;
 }
