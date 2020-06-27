@@ -40,16 +40,19 @@ export abstract class LAppLandmarks {
     public abstract setDetections(detections): void;
     public abstract render(canvas): void;
 
-    /* comment format [min, max] default */
-    public abstract getAngleX(): number;       //[-30,30] 0 左右朝向 yaw
-    public abstract getAngleY(): number;       //[-30,30] 0 仰头低头 pitch
-    public abstract getAngleZ(): number;       //[-30,30] 0 以脖子为轴摇头 roll
-    public abstract getEyeLOpen(): number;     //[0,1] 1
-    public abstract getEyeROpen(): number;     //[0,1] 1
+    /* 
+    * Parameter format "[min, max] default".
+    */
+    public abstract getAngleX(): number;       //[-1,1] 0 左右朝向 yaw
+    public abstract getAngleY(): number;       //[-1,1] 0 仰头低头 pitch
+    public abstract getAngleZ(): number;       //[-1,1] 0 以脖子为轴摇头 roll
     public abstract getEyeBallX(): number;     //[-1,1] 0
     public abstract getEyeBallY(): number;     //[-1,1] 0
-    public abstract getBodyAngleX(): number;   //[-10,10] 0
+    public abstract getBodyAngleX(): number;   //[-1,1] 0
+
     public abstract getMouthOpenY(): number;   //[0,1] 0
+    public abstract getEyeLOpen(): number;     //[0,1] 1
+    public abstract getEyeROpen(): number;     //[0,1] 1
 
     _type: string;
 }
@@ -61,11 +64,12 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
     }
 
     setDetections(detections):void{
-        this._detections = this.convertJsonToType(detections);
+        this._detections = this.plainToClass(detections);
         this._eye_right = this._detections.landmarks.getRightEye()[0];
         this._eye_left = this._detections.landmarks.getLeftEye()[3];
         this._nose = this._detections.landmarks.getNose()[6];
-        // this._mouth = this.getMeanPosition(this._detections.landmarks.getMouth());
+        this._mouth_left = this._detections.landmarks.getMouth()[0];
+        this._mouth_right = this._detections.landmarks.getMouth()[6];
         this._jaw = this.getMeanPosition(this._detections.landmarks.getJawOutline());
     }
 
@@ -85,23 +89,30 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
             .map((a: number) => a / l.length)
             .reduce((a, b) => new Point(a, b));
     }
+
+    private getDistance(Point1,Point2){
+        return Math.sqrt( (Point1.x-Point2.x)* (Point1.x-Point2.x) + (Point1.y-Point2.y)*(Point1.y-Point2.y));
+    }
     
     public getAngleX(): number{
         if(this._detections == null) {return 0}
-        let rawAngle = - (this._eye_left.x + (this._eye_right.x - this._eye_left.x) / 2 - this._nose.x) / this._detections.detection.box.width;
+        let rawAngle =  (this._eye_left.x + (this._eye_right.x - this._eye_left.x) / 2 - this._nose.x) / this._detections.detection.box.width;
         let normalizedAngle = rawAngle * 10;
         return normalizedAngle;
-    };   
-        
+    };         
+
     public getAngleY(): number{
         if(this._detections == null) {return 0}
-        let rawAngle =  -0.26 + (this._jaw.y - this.getMeanPosition([this._eye_left,this._eye_right,this._nose]).y)/ this._detections.detection.box.height;
+        let rawAngle = -0.3 + this.getDistance(this._jaw , this.getMeanPosition([this._eye_left,this._eye_right,this._nose]))/ this._detections.detection.box.height;
         let normalizedAngle = rawAngle > 0? rawAngle * 6 : rawAngle * 10;
         return normalizedAngle;
-    };       
+    }; 
+
 
     public getAngleZ(): number{
-        return 0;
+        if(this._detections == null) {return 0}
+        let rawAngle = (this._mouth_right.y - this._mouth_left.y) /(this._mouth_right.x - this._mouth_left.x)
+        return rawAngle;
     };       
     
     public getEyeLOpen(): number{
@@ -128,7 +139,7 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
         return 0;
     };
 
-    convertJsonToType(detections){
+    plainToClass(detections){
         // console.log(detections);
         // unshiftedLandmarks
         let unshiftedLandmarks = detections.unshiftedLandmarks;
@@ -232,6 +243,7 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
     _eye_right;
     _eye_left;
     _nose;
-    _mouth;
+    _mouth_left;
+    _mouth_right;
     _jaw;
 }

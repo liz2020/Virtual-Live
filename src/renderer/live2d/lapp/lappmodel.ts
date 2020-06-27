@@ -456,6 +456,7 @@ export class LAppModel extends CubismUserModel {
     let landmarkFactory = LAppLandmarks.getInstance("faceLandmark68");
     this._yaw = landmarkFactory.getAngleX();
     this._pitch = landmarkFactory.getAngleY();
+    this._roll = landmarkFactory.getAngleZ();
 
     this._dragManager.update(deltaTimeSeconds);
     this._dragX = this._dragManager.getX();
@@ -464,6 +465,7 @@ export class LAppModel extends CubismUserModel {
     if(!this.closeToZero(this._dragX) || !this.closeToZero(this._dragY)){
       this._yaw = this._dragX;
       this._pitch = this._dragY;
+      this._roll = this._dragX * this._dragY;
     }
 
     
@@ -508,7 +510,7 @@ export class LAppModel extends CubismUserModel {
     this._model.addParameterValueById(this._idParamAngleY, this._pitch * 30);
     this._model.addParameterValueById(
       this._idParamAngleZ,
-      this._yaw * this._pitch * -30
+      this._roll * 30
     );
 
     // ドラッグによる体の向きの調整
@@ -901,4 +903,5 @@ export class LAppModel extends CubismUserModel {
 
   _yaw: number;
   _pitch: number;
+  _roll: number;
 }
