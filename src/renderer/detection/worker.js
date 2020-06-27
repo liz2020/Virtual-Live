@@ -17,14 +17,15 @@ faceapi.env.monkeyPatch({
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.load("static/weights"),
-  faceapi.nets.faceLandmark68Net.loadFromUri("static/Weights/")
+  // faceapi.nets.faceLandmark68Net.loadFromUri("static/Weights/"),
+  faceapi.nets.faceLandmark68TinyNet.loadFromUri("static/Weights/")
 ]);
 
 /* ------------------------------------------------------------ */
 
 ipcRenderer.on("startDetection", (event, deviceId) => {
   initCamera(deviceId).then(() => {
-    timmerId = setInterval(() => detectLandmark(), 200);
+    timmerId = setInterval(() => detectLandmark(), 150);
   });
 });
 
@@ -70,7 +71,10 @@ let onLandmark = detection => {
 
 const getFaceOptions = () => {
   if (faceapiOptions == null) {
-    faceapiOptions = new faceapi.TinyFaceDetectorOptions();
+    faceapiOptions = new faceapi.TinyFaceDetectorOptions({
+      inputSize: 224,
+      scoreThreshold: 0.3
+    });
   }
   return faceapiOptions;
 };
@@ -125,10 +129,11 @@ const switchStream = async function(deviceId) {
 };
 
 const detectLandmark = async () => {
+  // console.time("detect");
   let result = await faceapi
     .detectSingleFace(getVideo(), getFaceOptions())
-    .withFaceLandmarks();
-
+    .withFaceLandmarks(true);
+  // console.timeEnd("detect");
   if (!isReady) {
     isReady = true;
     onReady();

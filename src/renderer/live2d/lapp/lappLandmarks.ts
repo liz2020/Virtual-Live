@@ -37,6 +37,18 @@ export abstract class LAppLandmarks {
   
     public release(): void{};
 
+    protected getMeanPosition(l) {
+        return l
+            .map((a) => [a.x, a.y])
+            .reduce((a, b) => [a[0] + b[0], a[1] + b[1]])
+            .map((a: number) => a / l.length)
+            .reduce((a, b) => new Point(a, b));
+    }
+
+    protected getDistance(Point1,Point2){
+        return Math.sqrt( (Point1.x-Point2.x)* (Point1.x-Point2.x) + (Point1.y-Point2.y)*(Point1.y-Point2.y));
+    }
+
     public abstract setDetections(detections): void;
     public abstract render(canvas): void;
 
@@ -80,18 +92,6 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
         const displaySize = { width: canvas.width, height: canvas.height };
         const resizedDetections = resizeResults(this._detections, displaySize);
         draw.drawFaceLandmarks(canvas, resizedDetections);
-    }
-
-    private getMeanPosition(l) {
-        return l
-            .map((a) => [a.x, a.y])
-            .reduce((a, b) => [a[0] + b[0], a[1] + b[1]])
-            .map((a: number) => a / l.length)
-            .reduce((a, b) => new Point(a, b));
-    }
-
-    private getDistance(Point1,Point2){
-        return Math.sqrt( (Point1.x-Point2.x)* (Point1.x-Point2.x) + (Point1.y-Point2.y)*(Point1.y-Point2.y));
     }
     
     public getAngleX(): number{

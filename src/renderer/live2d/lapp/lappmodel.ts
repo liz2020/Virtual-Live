@@ -468,8 +468,6 @@ export class LAppModel extends CubismUserModel {
       this._roll = this._dragX * this._dragY;
     }
 
-    
-
     // モーションによるパラメータ更新の有無
     let motionUpdated = false;
 
