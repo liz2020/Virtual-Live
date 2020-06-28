@@ -26,7 +26,7 @@ export let L2D_Y:number = 0.0;
 export let backgrondColor: number[] = [0, 177/255.0, 64/255.0]; //  Chroma key green (0, 177, 64)
 export let enableIdleMotion:boolean = false;
 export let enableBreath:boolean = false;
-export let enableAutoBlink:boolean = false;
+export let enableAutoBlink:boolean = true;
 /**
  * アプリケーションクラス。
  * Cubism SDKの管理を行う。

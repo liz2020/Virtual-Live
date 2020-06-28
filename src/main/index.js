@@ -69,7 +69,7 @@ function createDetectionWorker() {
   }
 
   detectionWorker = new BrowserWindow({
-    show: false,
+    // show: false,
     webPreferences: { nodeIntegration: true }
   });
 

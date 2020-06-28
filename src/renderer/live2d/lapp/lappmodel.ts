@@ -457,6 +457,8 @@ export class LAppModel extends CubismUserModel {
     this._yaw = landmarkFactory.getAngleX();
     this._pitch = landmarkFactory.getAngleY();
     this._roll = landmarkFactory.getAngleZ();
+    this._mouthOpen = landmarkFactory.getMouthOpenY();
+    this._mouthForm = landmarkFactory.getMouthForm();
 
     this._dragManager.update(deltaTimeSeconds);
     this._dragX = this._dragManager.getX();
@@ -520,6 +522,10 @@ export class LAppModel extends CubismUserModel {
     // ドラッグによる目の向きの調整
     this._model.addParameterValueById(this._idParamEyeBallX, this._yaw); // -1から1の値を加える
     this._model.addParameterValueById(this._idParamEyeBallY, this._pitch);
+    
+    // Mouth 
+    this._model.addParameterValueById(this._idParamMouthOpenY, this._mouthOpen);
+    this._model.addParameterValueById(this._idParamMouthForm, this._mouthForm);
 
     // 呼吸など
     if ( enableBreath && this._breath != null) {
@@ -862,6 +868,12 @@ export class LAppModel extends CubismUserModel {
     this._idParamEyeBallY = CubismFramework.getIdManager().getId(
       CubismDefaultParameterId.ParamEyeBallY
     );
+    this._idParamMouthOpenY = CubismFramework.getIdManager().getId(
+      CubismDefaultParameterId.ParamMouthOpenY
+    );
+    this._idParamMouthForm = CubismFramework.getIdManager().getId(
+      CubismDefaultParameterId.ParamMouthForm
+    );
     this._idParamBodyAngleX = CubismFramework.getIdManager().getId(
       CubismDefaultParameterId.ParamBodyAngleX
     );
@@ -891,6 +903,8 @@ export class LAppModel extends CubismUserModel {
   _idParamAngleZ: CubismIdHandle; // パラメータID: ParamAngleZ
   _idParamEyeBallX: CubismIdHandle; // パラメータID: ParamEyeBallX
   _idParamEyeBallY: CubismIdHandle; // パラメータID: ParamEyeBAllY
+  _idParamMouthOpenY: CubismIdHandle; // パラメータID: ParamMouthOpenY
+  _idParamMouthForm: CubismIdHandle; // パラメータID: ParamMouthForm
   _idParamBodyAngleX: CubismIdHandle; // パラメータID: ParamBodyAngleX
 
   _state: number; // 現在のステータス管理用
@@ -902,4 +916,6 @@ export class LAppModel extends CubismUserModel {
   _yaw: number;
   _pitch: number;
   _roll: number;
+  _mouthOpen: number;
+  _mouthForm: number;
 }

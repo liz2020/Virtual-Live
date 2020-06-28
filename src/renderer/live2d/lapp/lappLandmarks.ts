@@ -61,6 +61,7 @@ export abstract class LAppLandmarks {
     public abstract getEyeBallX(): number;     //[-1,1] 0
     public abstract getEyeBallY(): number;     //[-1,1] 0
     public abstract getBodyAngleX(): number;   //[-1,1] 0
+    public abstract getMouthForm(): number;    //[-1,1] 0
 
     public abstract getMouthOpenY(): number;   //[0,1] 0
     public abstract getEyeLOpen(): number;     //[0,1] 1
@@ -82,6 +83,8 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
         this._nose = this._detections.landmarks.getNose()[6];
         this._mouth_left = this._detections.landmarks.getMouth()[0];
         this._mouth_right = this._detections.landmarks.getMouth()[6];
+        this._lip_top = this._detections.landmarks.getMouth()[14];
+        this._lip_bottom = this._detections.landmarks.getMouth()[17];
         this._jaw = this.getMeanPosition(this._detections.landmarks.getJawOutline());
     }
 
@@ -91,6 +94,7 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
         // canvas.getContext("2d").fillRect(0, 0, canvas.width, canvas.height);
         const displaySize = { width: canvas.width, height: canvas.height };
         const resizedDetections = resizeResults(this._detections, displaySize);
+        draw.drawDetections(canvas, resizedDetections);
         draw.drawFaceLandmarks(canvas, resizedDetections);
     }
     
@@ -136,8 +140,17 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
     };   
 
     public getMouthOpenY(): number{
-        return 0;
+        if(this._detections == null) {return 0}
+        let rawAngle = 3*(-0.15 + this.getDistance(this._lip_top,this._lip_bottom) / this.getDistance(this._mouth_left,this._mouth_right));
+        return rawAngle > 1 ? 1 : rawAngle;
     };
+
+    public getMouthForm(): number{
+        if(this._detections == null) {return 0}
+        let rawAngle = this.getDistance(this._mouth_left,this._mouth_right)/this.getDistance(this._eye_left,this._eye_right);
+        let normalizedAngle = 4*(rawAngle-1.2)
+        return normalizedAngle;
+    }
 
     plainToClass(detections){
         // console.log(detections);
@@ -246,4 +259,6 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
     _mouth_left;
     _mouth_right;
     _jaw;
+    _lip_top;
+    _lip_bottom;
 }

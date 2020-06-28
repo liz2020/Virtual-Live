@@ -17,7 +17,7 @@ faceapi.env.monkeyPatch({
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.load("static/weights"),
-  // faceapi.nets.faceLandmark68Net.loadFromUri("static/Weights/"),
+  faceapi.nets.faceLandmark68Net.loadFromUri("static/Weights/"),
   faceapi.nets.faceLandmark68TinyNet.loadFromUri("static/Weights/")
 ]);
 
@@ -73,7 +73,7 @@ const getFaceOptions = () => {
   if (faceapiOptions == null) {
     faceapiOptions = new faceapi.TinyFaceDetectorOptions({
       inputSize: 224,
-      scoreThreshold: 0.3
+      scoreThreshold: 0.6
     });
   }
   return faceapiOptions;
@@ -132,7 +132,7 @@ const detectLandmark = async () => {
   // console.time("detect");
   let result = await faceapi
     .detectSingleFace(getVideo(), getFaceOptions())
-    .withFaceLandmarks(true);
+    .withFaceLandmarks();
   // console.timeEnd("detect");
   if (!isReady) {
     isReady = true;
