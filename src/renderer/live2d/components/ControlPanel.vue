@@ -81,10 +81,10 @@ export default {
       LAppDelegate.getInstance().setL2D_Y(pos_y);
     },
     reset() {
-      this.$emit("reset");
+      this.$store.dispatch("resetParamByGroup", "all");
     },
     save() {
-      this.$emit("save");
+      this.$store.dispatch("storeParamByGroup", "all");
     }
   }
 };

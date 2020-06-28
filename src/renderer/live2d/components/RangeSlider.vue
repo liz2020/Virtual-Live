@@ -32,18 +32,22 @@ export default {
       sliderValue: UserConfig.getInstance().get(this.title) || this.default
     };
   },
-  created: function() {
-    this.$parent.$on("reset", this.reset);
-    this.$parent.$on("save", this.save);
+  computed: {
+    onParamUpdate: function() {
+      return this.$store.state.storeParam.onParamUpdate;
+    },
+    onParamReset: function() {
+      return this.$store.state.storeParam.onParamReset;
+    }
   },
-  methods: {
-    reset() {
+  watch: {
+    onParamUpdate: function() {
+      UserConfig.getInstance().set(this.title, this.sliderValue);
+    },
+    onParamReset: function() {
       this.sliderValue =
         UserConfig.getInstance().get(this.title) || this.default;
       this.onInputMethod(this.sliderValue);
-    },
-    save() {
-      UserConfig.getInstance().set(this.title, this.sliderValue);
     }
   }
 };

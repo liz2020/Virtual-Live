@@ -81,3 +81,12 @@ Reference for using media
 - https://github.com/justadudewhohacks/face-api.js
 - https://www.youtube.com/watch?v=CVClHLwv-4I
 - https://medium.com/@andreas.schallwig/do-not-laugh-a-simple-ai-powered-game-3e22ad0f8166
+
+### Double range slider
+- https://dev.to/mandrewcito/vuejs-double-range-slider-component-2c5a
+
+### Vuex vs Bus
+- https://forum.vuejs.org/t/bus-vs-vuex/6679/2
+
+### Vuex dispatch does not work 
+- https://github.com/SimulatedGREG/electron-vue/issues/733
