@@ -100,15 +100,17 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
     
     public getAngleX(): number{
         if(this._detections == null) {return 0}
-        let rawAngle =  (this._eye_left.x + (this._eye_right.x - this._eye_left.x) / 2 - this._nose.x) / this._detections.detection.box.width;
-        let normalizedAngle = rawAngle * 10;
+        let rawAngle =  this.getDistance(this._eye_left,this._nose) / this.getDistance(this._eye_right,this._nose)
+        let normalizedAngle = (rawAngle -1)*8;
+        // console.log("X",normalizedAngle)
         return normalizedAngle;
     };         
 
     public getAngleY(): number{
         if(this._detections == null) {return 0}
-        let rawAngle = -0.3 + this.getDistance(this._jaw , this.getMeanPosition([this._eye_left,this._eye_right,this._nose]))/ this._detections.detection.box.height;
+        let rawAngle = -0.25 + this.getDistance(this._jaw , this.getMeanPosition([this._eye_left,this._eye_right,this._nose]))/ this._detections.detection.box.height;
         let normalizedAngle = rawAngle > 0? rawAngle * 6 : rawAngle * 10;
+        // console.log("Y",normalizedAngle)
         return normalizedAngle;
     }; 
 
@@ -116,6 +118,7 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
     public getAngleZ(): number{
         if(this._detections == null) {return 0}
         let rawAngle = (this._mouth_right.y - this._mouth_left.y) /(this._mouth_right.x - this._mouth_left.x)
+        // console.log("Z",rawAngle)
         return rawAngle;
     };       
     
