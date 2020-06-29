@@ -444,6 +444,10 @@ export class LAppModel extends CubismUserModel {
     return num < 0.01 && num > -0.01
   }
 
+  private checkTolerance(prevParam:number, tol:number, newParam:number){
+    return tol > Math.abs(prevParam-newParam) ? prevParam : newParam;
+  }
+
   /**
    * 更新
    */
@@ -454,11 +458,11 @@ export class LAppModel extends CubismUserModel {
     this._userTimeSeconds += deltaTimeSeconds;
 
     let landmarkFactory = LAppLandmarks.getInstance("faceLandmark68");
-    this._yaw = landmarkFactory.getAngleX();
-    this._pitch = landmarkFactory.getAngleY();
-    this._roll = landmarkFactory.getAngleZ();
-    this._mouthOpen = landmarkFactory.getMouthOpenY();
-    this._mouthForm = landmarkFactory.getMouthForm();
+    this._yaw = this.checkTolerance(this._yaw, 0.1, landmarkFactory.getAngleX());
+    this._pitch = this.checkTolerance(this._pitch, 0.1,landmarkFactory.getAngleY());
+    this._roll = this.checkTolerance(this._roll, 0.1,landmarkFactory.getAngleZ());
+    this._mouthOpen = this.checkTolerance(this._mouthOpen, 0.1,landmarkFactory.getMouthOpenY());
+    this._mouthForm = this.checkTolerance(this._mouthForm, 0.1,landmarkFactory.getMouthForm());
 
     this._dragManager.update(deltaTimeSeconds);
     this._dragX = this._dragManager.getX();
