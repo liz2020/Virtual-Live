@@ -28,7 +28,7 @@ function createWindow() {
     height: 230,
     width: 200,
     resizable: false,
-    title: "Atelier Pumpkin"
+    webPreferences: { nodeIntegration: true }
   });
 
   mainWindow.loadURL(winURL + "launcher.html");
@@ -46,7 +46,8 @@ function createLive2d(locale) {
     height: 550,
     useContentSize: true,
     width: 950,
-    show: false
+    show: false,
+    webPreferences: { nodeIntegration: true }
   });
 
   live2dWindow.loadURL(winURL + "live2d.html");
