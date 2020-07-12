@@ -94,7 +94,7 @@ export class LAppFaceLandmarks68 extends LAppLandmarks{
         // canvas.getContext("2d").fillRect(0, 0, canvas.width, canvas.height);
         const displaySize = { width: canvas.width, height: canvas.height };
         const resizedDetections = resizeResults(this._detections, displaySize);
-        draw.drawDetections(canvas, resizedDetections);
+        // draw.drawDetections(canvas, resizedDetections);
         draw.drawFaceLandmarks(canvas, resizedDetections);
     }
     

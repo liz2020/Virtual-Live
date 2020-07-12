@@ -2,6 +2,8 @@
 
 Virtual-Live is a desktop program that aims to enable anyone to use a webcam to control live2d characters. This program is developed for Mac, but could be compatible with Windows and Linux. 
 
+![demo image](./images/Virtual-Live-demo.png)
+
 ## Quick Start
 See [GETTING_STARTED.md](GETTING_STARTED.md)
 
@@ -10,4 +12,3 @@ See [GETTING_STARTED.md](GETTING_STARTED.md)
 - use opencv.js's solvePnP function to replace the current hard-coded facelandmark to roll, yawn, pitch function. (need to build opencv.js by myself)
 - Implement model import function.
 - Implement eye tracking.
-- Add pictures or videos about Virtual-Live to readme.
