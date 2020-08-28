@@ -11,7 +11,7 @@ yarn install
 ```
 
 ## 3. During development, serve with hot reload at localhost:9080
-
+The terminal inside vs-code do not have camera access, so you need to run this command in the original terminal instead.
 ``` bash
 yarn run dev
 
