@@ -1,16 +1,21 @@
-# Virtual-Live
+![banner](./images/banner.png)
+## Overview
+Virtual-Live is a desktop program that aims to enable anyone to use a webcam to control live2d characters. This program is developed for Mac, but could be compatible with Windows and Linux after modification. 
 
-Virtual-Live is a desktop program that aims to enable anyone to use a webcam to control live2d characters. This program is developed for Mac, but could be compatible with Windows and Linux. 
+## Features
+- Use webcam/mouse to control model
+- Customize chroma key color and model size/position
+- Multi-language support (English and Chinese)
+- Change App settings at system tray
 
-![demo image](./images/Virtual-Live-demo.png)
-
-## Quick Start
+## Installation
 See [GETTING_STARTED.md](GETTING_STARTED.md)
 
-## Todo Lists
+## Demo
+![demo image](./images/Virtual-Live-demo.png)
+
+## Future Plans
+- Refine IPC communication logic. 
 - Implement model import function.
-- use opencv.js's solvePnP function to replace the current hard-coded facelandmark to roll, yawn, pitch function. (need to build opencv.js by myself) or use model to predict the head pose.
-- Use Menubar icon to replace the launcher page.
-- Implement eye tracking.
-- Move the prediction logic from src/render/live2d to src/render/detection, so the data send from detection to live2d is just roll, yawn, and pitch instead of facelandmarks. (use factory design pattern)
+- Implement eye tracking. 
 - use TensorFlow.js to replace openface.api to have more control to the ml models.
