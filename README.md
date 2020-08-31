@@ -4,6 +4,7 @@ Virtual-Live is a desktop program that aims to enable anyone to use a webcam to 
 
 ## Features
 - Use webcam/mouse to control model
+- Switch between different models
 - Customize chroma key color and model size/position
 - Multi-language support (English and Chinese)
 - Change App settings at system tray
