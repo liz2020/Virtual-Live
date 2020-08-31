@@ -9,6 +9,7 @@
 import ChromaKey from "@live2d/components/ChromaKey";
 import ControlPanel from "@live2d/components/ControlPanel";
 import { ipcRenderer } from "electron";
+import { UserConfig } from "@/config";
 
 export default {
   name: "live2d",
@@ -16,6 +17,7 @@ export default {
   mounted: function() {
     ipcRenderer.on("setLanguage", (event, locale) => {
       this.$i18n.locale = locale;
+      UserConfig.getInstance().set("locale", locale);
     });
     ipcRenderer.send("launch-detection");
   }
