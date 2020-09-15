@@ -19,4 +19,4 @@ See [GETTING_STARTED.md](GETTING_STARTED.md)
 - Refine IPC communication logic. 
 - Implement model import function.
 - Implement eye tracking. 
-- use TensorFlow.js to replace openface.api to have more control to the ml models.
+- Virtual Camera
