@@ -3,7 +3,6 @@
 Virtual-Live is a desktop program that aims to enable anyone to use a webcam to control live2d characters. This program is developed for Mac, but could be compatible with Windows and Linux after modification. 
 
 ## Demo
-GIF
 ![demo gif](./images/Virtual-Live-Demo.gif)
 
 Screenshot
